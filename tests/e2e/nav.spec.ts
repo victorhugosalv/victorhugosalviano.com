@@ -47,6 +47,20 @@ test.describe("navegação no desktop", () => {
     await expect(html(page)).toHaveAttribute("data-theme", "light");
   });
 
+  test("Contato fica no canto da janela, com 56 px, e aparece desde o começo sem hero", async ({
+    page,
+  }) => {
+    await gotoWithTheme(page, "/projetos/rinha-do-campus-iv/", "dark");
+    const contact = page.getByRole("link", { name: "Ir para os contatos" });
+    await expect(contact).toBeVisible();
+    const viewport = page.viewportSize();
+    const b = await contact.boundingBox();
+    if (!viewport || !b) throw new Error("sem medidas");
+    expect(Math.round(b.width)).toBe(56);
+    expect(Math.round(viewport.width - (b.x + b.width))).toBe(32);
+    expect(Math.round(viewport.height - (b.y + b.height))).toBe(32);
+  });
+
   test("Contato aparece depois do hero e some na seção Contatos", async ({ page }) => {
     await gotoWithTheme(page, "/", "dark");
     const contact = page.getByRole("link", { name: "Ir para os contatos" });
@@ -79,28 +93,43 @@ test.describe("navegação no celular", () => {
 
   const menuButton = (page: Page) => page.getByRole("button", { name: /menu/i });
 
-  test("Início e Menu ficam em cima no topo e descem para baixo depois do hero", async ({
+  test("Menu fica sempre em cima à direita; Início aparece embaixo à direita depois do hero", async ({
     page,
   }) => {
     await gotoWithTheme(page, "/", "dark");
-    const home = page.getByRole("link", { name: "Voltar ao início" });
+    const home = page.getByRole("link", { name: "Voltar ao início", includeHidden: true });
     const viewport = page.viewportSize();
     if (!viewport) throw new Error("sem viewport");
-    let box = await menuButton(page).boundingBox();
-    expect(box?.y).toBeLessThan(40);
-    await scrollToId(page, "skills");
-    await expect
-      .poll(async () => (await menuButton(page).boundingBox())?.y ?? 0)
-      .toBeGreaterThan(viewport.height - 100);
-    box = await menuButton(page).boundingBox();
-    const homeBox = await home.boundingBox();
-    for (const b of [box, homeBox]) {
+    const atTopRight = async () => {
+      const b = await menuButton(page).boundingBox();
       expect(b).not.toBeNull();
-      if (!b) continue;
-      expect(b.x).toBeGreaterThanOrEqual(0);
-      expect(b.x + b.width).toBeLessThanOrEqual(viewport.width);
-      expect(b.y + b.height).toBeLessThanOrEqual(viewport.height);
-    }
+      if (!b) return;
+      expect(b.y).toBeLessThan(40);
+      expect(viewport.width - (b.x + b.width)).toBeLessThanOrEqual(24);
+    };
+    await atTopRight();
+    await expect(home).toBeHidden();
+    // Escondido, Início não recebe foco: do link de pular o Tab vai direto ao Menu.
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await expect(page.locator(":focus")).toHaveAccessibleName("Abrir menu");
+    await scrollToId(page, "skills");
+    await expect(home).toBeVisible();
+    await atTopRight();
+    const b = await home.boundingBox();
+    expect(b).not.toBeNull();
+    if (!b) return;
+    expect(b.x).toBeGreaterThan(viewport.width / 2);
+    expect(viewport.width - (b.x + b.width)).toBeLessThanOrEqual(24);
+    expect(b.y).toBeGreaterThan(viewport.height - 100);
+    expect(b.y + b.height).toBeLessThanOrEqual(viewport.height);
+    await scrollToId(page, "inicio");
+    await expect(home).toBeHidden();
+  });
+
+  test("nas páginas sem hero, Início aparece desde o começo", async ({ page }) => {
+    await gotoWithTheme(page, "/projetos/rinha-do-campus-iv/", "dark");
+    await expect(page.getByRole("link", { name: "Voltar ao início" })).toBeVisible();
   });
 
   for (const theme of THEMES) {
@@ -143,7 +172,11 @@ test.describe("navegação no celular", () => {
     await menuButton(page).click();
     const nav = page.locator(`[id="${await menuButton(page).getAttribute("aria-controls")}"]`);
     await expect(nav).toBeVisible();
-    expect((await nav.boundingBox())?.y).toBeLessThan(40);
+    // O menu abre logo abaixo do botão, que continua em cima.
+    const toggleBox = await menuButton(page).boundingBox();
+    const navBox = await nav.boundingBox();
+    expect(navBox?.y).toBeGreaterThanOrEqual((toggleBox?.y ?? 0) + (toggleBox?.height ?? 0));
+    expect(navBox?.y).toBeLessThan(100);
     await nav.getByRole("button", { name: "Modo claro" }).click();
     await expect(html(page)).toHaveAttribute("data-theme", "light");
     await nav.getByRole("link", { name: "Sobre" }).click();

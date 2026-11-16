@@ -3,6 +3,8 @@ import type { ReactNode, Ref } from "react";
 import styles from "./FloatingButton.module.css";
 
 interface FloatingButtonProps {
+  /** glass: vidro de 48 px (navegação). accent: 56 px em vermelho (atalho de ação). */
+  variant?: "glass" | "accent";
   /** Nome acessível (o botão só tem ícone). */
   label: string;
   /** O ícone (decorativo). */
@@ -15,8 +17,9 @@ interface FloatingButtonProps {
   ref?: Ref<HTMLButtonElement>;
 }
 
-/** Botão redondo de vidro (48 px), usado na navegação flutuante. */
+/** Botão redondo da navegação flutuante: de vidro (48 px) ou de destaque (56 px). */
 export function FloatingButton({
+  variant = "glass",
   label,
   children,
   href,
@@ -27,7 +30,12 @@ export function FloatingButton({
 }: FloatingButtonProps) {
   if (href !== undefined) {
     return (
-      <a href={href} aria-label={label} onClick={onClick} className={styles.button}>
+      <a
+        href={href}
+        aria-label={label}
+        onClick={onClick}
+        className={`${styles.button} ${styles[variant]}`}
+      >
         {children}
       </a>
     );
@@ -40,7 +48,7 @@ export function FloatingButton({
       aria-expanded={expanded}
       aria-controls={controls}
       onClick={onClick}
-      className={styles.button}
+      className={`${styles.button} ${styles[variant]}`}
     >
       {children}
     </button>

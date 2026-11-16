@@ -40,10 +40,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
     <main id={anchors.content} className={styles.main}>
       <Container>
         <div className={styles.page}>
-          <div>
-            <ProjectHeader project={project} page={project.page} />
-            <div id={anchors.heroEnd} aria-hidden="true" />
-          </div>
+          <ProjectHeader project={project} page={project.page} />
           <div className={styles.columns}>
             <div className={styles.aside}>
               <ProjectAside project={project} page={project.page} />

@@ -8,20 +8,20 @@
   }
 }
 
-/* Mesma borda direita do conteúdo (1200 px centralizados). */
-.theme,
-.contact {
+/* Tema: parte da barra do topo, na mesma borda direita do conteúdo (1200 px centralizados). */
+.theme {
   position: fixed;
+  top: var(--nav-top);
   right: max(var(--page-gutter), (100% - var(--page-max)) / 2);
   z-index: 50;
 }
 
-.theme {
-  top: var(--nav-top);
-}
-
+/* Contato: atalho de ação preso ao canto da janela (32 px; 24 px abaixo de 1280). */
 .contact {
-  bottom: var(--space-32);
+  position: fixed;
+  right: var(--space-24);
+  bottom: var(--space-24);
+  z-index: 50;
   transition:
     opacity var(--duration-medium) var(--ease-out),
     visibility var(--duration-medium);
@@ -30,6 +30,13 @@
 .contact[data-visible="false"] {
   opacity: 0;
   visibility: hidden;
+}
+
+@media (min-width: 1280px) {
+  .contact {
+    right: var(--space-32);
+    bottom: var(--space-32);
+  }
 }
 
 .pill {

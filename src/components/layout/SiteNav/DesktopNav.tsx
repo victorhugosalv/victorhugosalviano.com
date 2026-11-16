@@ -25,11 +25,14 @@ function PillLink({ link, active }: { link: NavLink; active: boolean }) {
   );
 }
 
-/** Desktop (≥ 1024 px): pílula centralizada, tema no canto de cima e contato no de baixo. */
-export function DesktopNav({ active }: { active: string | null }) {
+/**
+ * Desktop (≥ 1024 px): pílula centralizada e tema no canto de cima, alinhados ao conteúdo.
+ * O contato é um atalho de ação: fica preso ao canto da janela, maior e em vermelho.
+ */
+export function DesktopNav({ active, hasHero }: { active: string | null; hasHero: boolean }) {
   const pastHero = useScrolledPast(anchors.heroEnd);
   const contactPosition = useViewportPosition(anchors.contact);
-  const showContact = pastHero && contactPosition !== "visible";
+  const showContact = (!hasHero || pastHero) && contactPosition !== "visible";
   return (
     <nav aria-label={ui.nav.label} className={styles.desktop}>
       <div className={styles.pill}>
@@ -52,8 +55,8 @@ export function DesktopNav({ active }: { active: string | null }) {
         <ThemeToggleFloating />
       </div>
       <div className={styles.contact} data-visible={showContact}>
-        <FloatingButton href={`#${anchors.contact}`} label={ui.nav.contactButton}>
-          <Icon name="message" size={20} tone="chat" />
+        <FloatingButton href={`#${anchors.contact}`} label={ui.nav.contactButton} variant="accent">
+          <Icon name="message" size={24} />
         </FloatingButton>
       </div>
     </nav>

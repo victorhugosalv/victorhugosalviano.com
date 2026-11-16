@@ -16,11 +16,13 @@ import styles from "./MobileNav.module.css";
 import { mobileLinks } from "./navLinks";
 
 /**
- * Celular e tablet (< 1024 px): botões Início e Menu nos cantos de cima; depois do hero,
- * descem para os cantos de baixo. O menu desce do topo, prende o foco e fecha com Esc.
+ * Celular e tablet (< 1024 px): Menu fixo no canto de cima à direita; Início no canto de
+ * baixo à direita, escondido enquanto o hero está na tela (nas páginas sem hero, sempre à
+ * vista). O menu desce do topo, prende o foco e fecha com Esc ou com um toque fora.
  */
-export function MobileNav({ active }: { active: string | null }) {
-  const scrolled = useScrolledPast(anchors.heroEnd);
+export function MobileNav({ active, hasHero }: { active: string | null; hasHero: boolean }) {
+  const pastHero = useScrolledPast(anchors.heroEnd);
+  const showHome = !hasHero || pastHero;
   const { isOpen, close, toggle, panelId } = useDisclosure();
   const trapRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -55,20 +57,15 @@ export function MobileNav({ active }: { active: string | null }) {
   const current = active ?? anchors.top;
 
   return (
-    <nav
-      aria-label={ui.nav.label}
-      className={styles.mobile}
-      data-scrolled={scrolled}
-      data-open={isOpen}
-    >
-      <div className={`${styles.slot} ${styles.left}`}>
+    <nav aria-label={ui.nav.label} className={styles.mobile} data-open={isOpen}>
+      <div className={`${styles.slot} ${styles.bottom}`} data-visible={showHome}>
         <FloatingButton href={`/#${anchors.top}`} label={ui.nav.homeButton}>
           <Icon name="home" size={20} />
         </FloatingButton>
       </div>
       {isOpen ? <div className={styles.scrim} aria-hidden="true" /> : null}
       <div ref={trapRef}>
-        <div className={`${styles.slot} ${styles.right} ${styles.toggle}`}>
+        <div className={`${styles.slot} ${styles.top} ${styles.toggle}`}>
           <FloatingButton
             ref={toggleRef}
             label={isOpen ? ui.nav.closeMenu : ui.nav.openMenu}

@@ -1,14 +1,5 @@
 .mobile {
   --edge: var(--nav-top);
-  --bottom-shift: calc(100vh - var(--floating-size) - 2 * var(--edge));
-}
-
-@supports (height: 100dvh) {
-  .mobile {
-    --bottom-shift: calc(
-      100dvh - var(--floating-size) - 2 * var(--edge) - env(safe-area-inset-bottom)
-    );
-  }
 }
 
 @media (min-width: 1024px) {
@@ -19,22 +10,27 @@
 
 .slot {
   position: fixed;
-  top: var(--edge);
-  z-index: 50;
-  transition: translate var(--duration-medium) var(--ease-out);
-}
-
-.left {
-  left: var(--edge);
-}
-
-.right {
   right: var(--edge);
+  z-index: 50;
 }
 
-/* Depois do hero, os dois botões descem para os cantos de baixo (alcance do polegar). */
-.mobile[data-scrolled="true"] .slot {
-  translate: 0 var(--bottom-shift);
+/* Menu: sempre no canto de cima à direita. */
+.top {
+  top: var(--edge);
+}
+
+/* Início: no canto de baixo à direita, acima da barra do navegador. Some enquanto o hero
+   está na tela; escondido, não recebe foco nem é anunciado (visibility). */
+.bottom {
+  bottom: calc(var(--edge) + env(safe-area-inset-bottom));
+  transition:
+    opacity var(--duration-medium) var(--ease-out),
+    visibility var(--duration-medium);
+}
+
+.bottom[data-visible="false"] {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .toggle {
@@ -62,11 +58,6 @@
   background: var(--color-surface);
   box-shadow: var(--shadow-menu);
   animation: drop var(--duration-medium) var(--ease-out);
-}
-
-/* Depois de rolar, o botão fica embaixo e o menu cola no topo. */
-.mobile[data-scrolled="true"] .panel {
-  top: var(--edge);
 }
 
 .panel[hidden] {

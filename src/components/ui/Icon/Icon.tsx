@@ -45,11 +45,11 @@ const icons = {
 } as const;
 
 export type IconName = keyof typeof icons;
-export type IconTone = "inherit" | "sun" | "moon" | "chat";
+export type IconTone = "inherit" | "sun" | "moon";
 
 interface IconProps {
   name: IconName;
-  size?: 16 | 18 | 20;
+  size?: 16 | 18 | 20 | 24;
   tone?: IconTone;
 }
 

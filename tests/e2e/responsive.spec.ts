@@ -73,15 +73,17 @@ test.describe("responsividade", () => {
         await gotoWithTheme(page, path, "dark");
         const isDesktop = width >= 1024;
         const menu = page.getByRole("button", { name: "Abrir menu" });
-        const home = page.getByRole("link", { name: "Voltar ao início" });
+        const home = page.getByRole("link", { name: "Voltar ao início", includeHidden: true });
         const pillLogo = page.getByRole("link", { name: "VHS, Victor Hugo Salviano: início" });
         const theme = page.getByRole("button", { name: "Mudar para o modo claro" });
         await expect(menu, `${width}px`).toBeVisible({ visible: !isDesktop });
-        await expect(home, `${width}px`).toBeVisible({ visible: !isDesktop });
+        // Início: no topo da home fica escondido (o hero está na tela); sem hero, à vista.
+        const homeVisible = !isDesktop && path !== "/";
+        await expect(home, `${width}px`).toBeVisible({ visible: homeVisible });
         await expect(pillLogo, `${width}px`).toBeVisible({ visible: isDesktop });
         await expect(theme, `${width}px`).toBeVisible({ visible: isDesktop });
         // Botões flutuantes dentro da tela.
-        for (const el of isDesktop ? [theme] : [menu, home]) {
+        for (const el of isDesktop ? [theme] : homeVisible ? [menu, home] : [menu]) {
           const box = await el.boundingBox();
           expect(box && box.x >= 0 && box.x + box.width <= width, `${width}px`).toBe(true);
         }
