@@ -8,7 +8,7 @@ import { THEMES } from "./pages";
 test.describe("página inicial", () => {
   test("as seções seguem a ordem dos dados e nenhum título tem número", async ({ page }) => {
     await gotoWithTheme(page, "/", "dark");
-    const ids = await page.locator("main section[id]").evaluateAll((els) => els.map((e) => e.id));
+    const ids = await page.locator("section[id]").evaluateAll((els) => els.map((e) => e.id));
     expect(ids).toEqual(sections.map((s) => s.id));
     const headings = await page.locator("h1, h2").allTextContents();
     for (const h of headings) expect(h).not.toMatch(/^\s*\d/);

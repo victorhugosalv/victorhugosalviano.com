@@ -52,7 +52,7 @@ export function DesktopNav({ active }: { active: string | null }) {
         <ThemeToggleFloating />
       </div>
       <div className={styles.contact} data-visible={showContact}>
-        <FloatingButton href={`/#${anchors.contact}`} label={ui.nav.contactButton}>
+        <FloatingButton href={`#${anchors.contact}`} label={ui.nav.contactButton}>
           <Icon name="message" size={20} tone="chat" />
         </FloatingButton>
       </div>

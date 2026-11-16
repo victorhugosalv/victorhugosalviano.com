@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { Footer } from "@/components/layout/Footer";
 import { NextProject } from "@/components/project/NextProject";
 import { ProjectAside } from "@/components/project/ProjectAside";
 import { ProjectBody } from "@/components/project/ProjectBody";
@@ -38,29 +37,24 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
   if (!project) notFound();
   const next = nextProjectOf(slug);
   return (
-    <>
-      <main id={anchors.content} className={styles.main}>
-        <Container>
-          <div className={styles.page}>
-            <div>
-              <ProjectHeader project={project} page={project.page} />
-              <div id={anchors.heroEnd} aria-hidden="true" />
-            </div>
-            <div className={styles.columns}>
-              <div className={styles.aside}>
-                <ProjectAside project={project} page={project.page} />
-              </div>
-              <div className={styles.body}>
-                <ProjectBody page={project.page} />
-              </div>
-            </div>
-            {next ? <NextProject project={next} /> : null}
-          </div>
-        </Container>
-      </main>
+    <main id={anchors.content} className={styles.main}>
       <Container>
-        <Footer />
+        <div className={styles.page}>
+          <div>
+            <ProjectHeader project={project} page={project.page} />
+            <div id={anchors.heroEnd} aria-hidden="true" />
+          </div>
+          <div className={styles.columns}>
+            <div className={styles.aside}>
+              <ProjectAside project={project} page={project.page} />
+            </div>
+            <div className={styles.body}>
+              <ProjectBody page={project.page} />
+            </div>
+          </div>
+          {next ? <NextProject project={next} /> : null}
+        </div>
       </Container>
-    </>
+    </main>
   );
 }

@@ -7,10 +7,11 @@ export interface NavLink {
   href: string;
 }
 
+/** Contatos existe em todas as páginas, então o link fica na própria página. */
 const toLink = (s: { id: string; title: string }): NavLink => ({
   id: s.id,
   title: s.title,
-  href: `/#${s.id}`,
+  href: s.id === anchors.contact ? `#${s.id}` : `/#${s.id}`,
 });
 
 /** Links do menu do celular: Início e todas as seções, na ordem dos dados. */
