@@ -1,9 +1,15 @@
 {
   // Site estático: só arquivos de out/, sem script de Worker.
-  // Deploy e domínio são feitos à mão, com o Victor (fase 8 do plano).
+  // Deploy: npm run build e wrangler deploy (fase 8 do plano).
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "victorhugosalviano-com",
   "compatibility_date": "2026-11-01",
+  // Endereço único: o domínio próprio. Sem *.workers.dev nem URLs de prévia.
+  "workers_dev": false,
+  "preview_urls": false,
+  // Custom Domain: a Cloudflare cria o registro do Worker e o certificado.
+  // Não mexe em MX nem TXT (e-mail).
+  "routes": [{ "pattern": "victorhugosalviano.com", "custom_domain": true }],
   "assets": {
     "directory": "./out",
     "html_handling": "auto-trailing-slash",
