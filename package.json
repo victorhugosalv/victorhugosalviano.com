@@ -21,7 +21,8 @@
     "check:rules": "node scripts/check-rules.mjs",
     "check": "npm run typecheck && npm run lint && npm run format:check && npm test && npm run check:rules && tsx scripts/brand-colors.ts --check && npm run build",
     "screenshots": "tsx scripts/screenshots.ts",
-    "brand-colors": "tsx scripts/brand-colors.ts"
+    "brand-colors": "tsx scripts/brand-colors.ts",
+    "optimize-images": "tsx scripts/optimize-images.ts"
   },
   "dependencies": {
     "@tabler/icons-react": "3.52.0",

@@ -1,0 +1,23 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: var(--touch-min);
+  color: var(--color-red-text);
+  font: var(--text-button);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

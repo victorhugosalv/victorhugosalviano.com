@@ -1,5 +1,6 @@
 .tag {
   display: inline-flex;
+  min-height: 26px;
   align-items: center;
   gap: var(--space-6);
   padding: var(--space-4) var(--space-8);

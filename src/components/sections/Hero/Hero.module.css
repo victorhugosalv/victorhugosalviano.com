@@ -1,0 +1,99 @@
+.hero {
+  display: grid;
+  grid-template-areas:
+    "media"
+    "lead"
+    "chips"
+    "actions";
+  row-gap: var(--space-20);
+  padding-top: var(--space-32);
+}
+
+.media {
+  grid-area: media;
+  position: relative;
+  aspect-ratio: 342 / 400;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-2);
+}
+
+/* Degradê da foto para o fundo (mais leve no claro: --photo-fade). */
+.fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 45%, var(--color-bg) 100%);
+  opacity: var(--photo-fade);
+}
+
+/* No celular, o nome fica sobre a foto, embaixo à esquerda. */
+.name {
+  grid-area: media;
+  align-self: end;
+  z-index: 1;
+  padding: 0 var(--space-20) var(--space-20);
+  color: var(--color-text);
+  font: var(--text-name);
+  letter-spacing: var(--text-name-tracking);
+}
+
+.name span {
+  display: block;
+}
+
+.lead {
+  grid-area: lead;
+  color: var(--color-text);
+  font: var(--text-lead);
+}
+
+.chips {
+  grid-area: chips;
+}
+
+.actions {
+  grid-area: actions;
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) 500px;
+    grid-template-rows: 1fr auto auto auto auto 1fr;
+    grid-template-areas:
+      ". media"
+      "name media"
+      "lead media"
+      "chips media"
+      "actions media"
+      ". media";
+    column-gap: var(--space-80);
+    row-gap: var(--space-32);
+    padding-top: var(--space-64);
+  }
+
+  .media {
+    aspect-ratio: 500 / 580;
+  }
+
+  /* Desktop: foto sem degradê e sem vinheta (decisão de 15/11). */
+  .fade {
+    display: none;
+  }
+
+  .name {
+    grid-area: name;
+    align-self: auto;
+    padding: 0;
+  }
+
+  .lead {
+    max-width: 580px;
+  }
+}
+
+/* Tablet: a foto não passa da primeira tela. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .media {
+    max-height: 560px;
+  }
+}

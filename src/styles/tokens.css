@@ -89,6 +89,13 @@
   --color-scrim: rgb(0 0 0 / 0.6);
 }
 
+/* Tablet (768–1023 px): layout do celular com o conteúdo centralizado. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --page-max: 640px;
+  }
+}
+
 @media (min-width: 1024px) {
   :root {
     --page-gutter: var(--space-120);

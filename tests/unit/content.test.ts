@@ -1,0 +1,110 @@
+import { readFileSync, readdirSync } from "node:fs";
+import { resolve } from "node:path";
+
+import sharp from "sharp";
+import { describe, expect, it } from "vitest";
+
+import { about } from "@/content/about";
+import { profile } from "@/content/profile";
+import { projects } from "@/content/projects";
+import { sections } from "@/content/sections";
+import { skillGroups } from "@/content/skills";
+import { timeline } from "@/content/timeline";
+import type { SkillGroup } from "@/content/types";
+import { brandIcon } from "@/lib/brands";
+
+const groups: readonly SkillGroup[] = skillGroups;
+
+/** O currículo em Markdown publicado no site é a fonte dos fatos. */
+const cv = readFileSync(resolve("public/curriculo/curriculo-victor-hugo-salviano.md"), "utf8");
+const cvLower = cv.toLowerCase();
+
+describe("conteúdo bate com o curriculo.md", () => {
+  it("nome, e-mail e links", () => {
+    expect(cv).toContain(profile.fullName);
+    expect(cv).toContain(profile.email);
+    expect(cv).toContain("github.com/victorhugosalv");
+    expect(cv).toContain("linkedin.com/in/victor-hugo-salviano");
+    expect(cv).toContain("Estudante de Ciência da Computação · Engenharia de software e IA");
+  });
+
+  it("todas as skills do PDF estão no site (o site tem também HTML, CSS e Tailwind CSS)", () => {
+    const habilidades = cv.slice(cv.indexOf("## Habilidades"), cv.indexOf("## Idiomas"));
+    const site = groups.flatMap((g) => g.skills.map((s) => s.name.toLowerCase()));
+    const pdf = [...habilidades.matchAll(/:\*\* (.+)$/gm)]
+      .flatMap((m) => (m[1] ?? "").replace(/\s*\([^)]*\)/g, "").split(", "))
+      .map((s) => s.trim().toLowerCase());
+    const aliases: Record<string, string> = { tailwind: "tailwind css" };
+    for (const skill of pdf) expect(site, skill).toContain(aliases[skill] ?? skill);
+  });
+
+  it("datas da trajetória e dos projetos aparecem no currículo", () => {
+    const dates = [
+      ...timeline.flatMap((t) => ("period" in t ? [t.period.start.label, t.period.end.label] : [])),
+      ...projects.flatMap((p) => [p.period.start.label, p.period.end.label]),
+    ].filter((d) => d !== "atual" && !d.startsWith("set/"));
+    for (const d of dates) expect(cvLower, d).toContain(d);
+  });
+
+  it("'Minha parte' da Rinha repete os itens do currículo", () => {
+    const rinha = projects.find((p) => p.slug === "rinha-do-campus-iv");
+    const items =
+      rinha && "page" in rinha
+        ? rinha.page.sections.flatMap((s) => ("items" in s ? s.items : []))
+        : [];
+    expect(items).toHaveLength(5);
+    for (const item of items) expect(cv, item).toContain(item.replace(/\.$/, ""));
+  });
+
+  it("repositórios da Rinha são os do currículo", () => {
+    for (const repo of projects[0].repos) expect(cv).toContain(repo.href.replace("https://", ""));
+  });
+
+  it("o Sobre cita só fatos do currículo (14 h, monitoria de Java, Docenda com LLM)", () => {
+    const text = about.paragraphs.join(" ");
+    expect(text).toContain("14 horas");
+    expect(cv).toContain("14 h de aula");
+    expect(text).toContain("Docenda");
+    expect(cv).toContain("Docenda, plataforma com LLM");
+  });
+});
+
+describe("regras do design", () => {
+  it("nenhuma seção tem número", () => {
+    for (const s of sections) expect(s.title).not.toMatch(/\d/);
+  });
+
+  it("logos só nas skills previstas (sem logo: SQL, JPA, APIs REST, CSS Modules, Linux, Mockito, Spec Kit, Engenharia de prompt)", () => {
+    const semLogo = groups
+      .flatMap((g) => g.skills)
+      .filter((s) => !s.brand || !brandIcon(s.brand))
+      .map((s) => s.name);
+    expect(semLogo.sort()).toEqual(
+      [
+        "SQL",
+        "JPA",
+        "APIs REST",
+        "CSS Modules",
+        "Linux",
+        "Mockito",
+        "Spec Kit",
+        "Engenharia de prompt",
+      ].sort(),
+    );
+  });
+
+  it("'Ver mais' só para projetos com página (hoje, só a Rinha)", () => {
+    expect(projects.filter((p) => "page" in p).map((p) => p.slug)).toEqual(["rinha-do-campus-iv"]);
+  });
+});
+
+describe("imagens publicadas", () => {
+  const dir = resolve("public/images");
+  for (const file of readdirSync(dir)) {
+    it(`${file} não tem metadados (EXIF, GPS, XMP)`, async () => {
+      const meta = await sharp(resolve(dir, file)).metadata();
+      expect(meta.exif).toBeUndefined();
+      expect(meta.xmp).toBeUndefined();
+    });
+  }
+});

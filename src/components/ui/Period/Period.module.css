@@ -1,0 +1,14 @@
+/* Pixel/Rótulo (10 px) no celular e Pixel/Rótulo grande (12 px) no desktop. */
+.period {
+  color: var(--color-gold);
+  font: var(--text-pixel);
+  letter-spacing: var(--text-pixel-tracking);
+  text-transform: uppercase;
+}
+
+@media (min-width: 1024px) {
+  .period {
+    font: var(--text-pixel-large);
+    letter-spacing: var(--text-pixel-tracking);
+  }
+}

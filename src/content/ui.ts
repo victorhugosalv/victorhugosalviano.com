@@ -23,3 +23,9 @@ export const ui = {
     copyright: "© 2026 Victor Hugo Salviano",
   },
 } as const;
+
+export const contactTexts = {
+  copy: "Copiar e-mail",
+  copied: "E-mail copiado",
+  copyFailed: "Não deu para copiar; o endereço está acima",
+} as const;

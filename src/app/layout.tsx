@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
-import { Footer } from "@/components/layout/Footer";
 import { SiteNav } from "@/components/layout/SiteNav";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { site } from "@/content/site";
@@ -46,7 +45,6 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         <SkipLink />
         <SiteNav />
         {children}
-        <Footer />
       </body>
     </html>
   );

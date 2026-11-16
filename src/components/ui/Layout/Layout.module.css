@@ -11,12 +11,18 @@
   min-width: 0;
 }
 
+/* Itens de lista lado a lado: sem a linha de texto do <li> desalinhando os filhos. */
+.cluster > li {
+  display: flex;
+}
+
 .grid {
   display: grid;
   min-width: 0;
 }
 
 .container {
+  display: flow-root;
   width: 100%;
   max-width: calc(var(--page-max) + 2 * var(--page-gutter));
   margin-inline: auto;

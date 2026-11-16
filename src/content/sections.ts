@@ -9,7 +9,7 @@ export const sections = [
   { id: "projetos", title: "Projetos", inDesktopNav: true },
   { id: "sobre", title: "Sobre", inDesktopNav: true },
   { id: "trajetoria", title: "Trajetória", inDesktopNav: true },
-  { id: "contatos", title: "Contatos", inDesktopNav: false },
+  { id: "contatos", title: "Contatos", heading: "Vamos conversar?", inDesktopNav: false },
 ] as const satisfies readonly Section[];
 
 export type SectionId = (typeof sections)[number]["id"];

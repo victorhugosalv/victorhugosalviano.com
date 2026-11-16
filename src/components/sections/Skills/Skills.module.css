@@ -1,0 +1,23 @@
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.title {
+  color: var(--color-text-muted);
+  font: var(--text-group);
+}
+
+@media (min-width: 1024px) {
+  .group {
+    gap: var(--space-16);
+    padding-top: var(--space-20);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .title {
+    color: var(--color-text);
+    font: var(--text-small-title);
+  }
+}

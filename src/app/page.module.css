@@ -1,12 +1,20 @@
 .main {
-  padding-block: var(--space-80) var(--space-64);
+  padding-bottom: 0;
 }
 
-/* Provisório (fase 2): altura para testar a navegação antes das seções da fase 3. */
-.hero {
-  min-height: 90vh;
+/* Contatos e rodapé numa faixa de superfície que vai de ponta a ponta. */
+.band,
+.footerBand {
+  background: var(--color-surface);
 }
 
-.main section {
-  min-height: 80vh;
+.band {
+  margin-top: var(--space-64);
+  border-top: 1px solid var(--color-line);
+}
+
+@media (min-width: 1024px) {
+  .band {
+    margin-top: var(--space-120);
+  }
 }
