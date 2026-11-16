@@ -92,6 +92,26 @@ export const projects = [
         "Cypress",
         "Docker",
       ],
+      // Telas do front rodando localmente com os dados de exemplo dos testes (fictícios).
+      screens: {
+        label: "Telas da Rinha do Campus IV",
+        images: [
+          {
+            name: "rinha-tela-1",
+            widths: [600, 1200],
+            width: 1200,
+            height: 750,
+            alt: "Página Explorar Torneios com um torneio de exemplo em destaque: inscrições abertas, premiação, equipes confirmadas e data.",
+          },
+          {
+            name: "rinha-tela-2",
+            widths: [600, 1200],
+            width: 1200,
+            height: 750,
+            alt: "Página de um torneio com o cronograma, as regras gerais, a taxa por jogador e o botão de inscrição.",
+          },
+        ],
+      },
     },
   },
   {

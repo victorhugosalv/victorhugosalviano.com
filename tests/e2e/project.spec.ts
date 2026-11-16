@@ -42,7 +42,9 @@ test.describe("página da Rinha", () => {
   test("cabeçalho, stack, repositórios e próximo projeto", async ({ page }) => {
     await gotoWithTheme(page, RINHA, "dark");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Rinha do Campus IV");
-    await expect(page.getByRole("img", { name: /League of Legends/ })).toBeVisible();
+    // Com 2 telas ou mais, o carrossel ocupa o lugar da capa.
+    await expect(page.getByRole("region", { name: "Telas da Rinha do Campus IV" })).toBeVisible();
+    await expect(page.getByRole("img", { name: /Explorar Torneios/ })).toBeVisible();
     for (const h of ["Stack", "Repositórios", "Como funciona", "Linha do tempo", "Minha parte"]) {
       await expect(page.getByRole("heading", { level: 2, name: h })).toBeVisible();
     }

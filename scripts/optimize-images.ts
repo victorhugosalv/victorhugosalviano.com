@@ -35,6 +35,12 @@ const jobs: Job[] = [
     file: `bichedin/telas/${["1-inicio", "2-galeria", "3-curriculo", "4-criar"][n - 1]}.png`,
     widths: [600, 1200],
   })),
+  // Telas da Rinha (1280×800, front rodando localmente com os dados de exemplo dos testes).
+  ...[1, 2].map((n) => ({
+    name: `rinha-tela-${n}`,
+    file: `rinha/telas/${["1-torneios", "2-torneio"][n - 1]}.png`,
+    widths: [600, 1200],
+  })),
 ];
 
 mkdirSync(OUT, { recursive: true });
