@@ -39,7 +39,7 @@ Repositórios: [github.com/gbrlmzl/api-rinha-v2](https://github.com/gbrlmzl/api-
 
 ### Estágio Supervisionado em Computação (licenciatura) · jun/2026 – atual
 
-- Ministrei 14 h de aula no 1º ano do ensino médio, com planos e material próprios aprovados pela professora orientadora.
+- Ministrei aulas no 1º ano do ensino médio, com planos e material próprios aprovados pela professora orientadora.
 - Observei aulas em escola municipal (6º e 7º ano, jun/2026 – jul/2026) e escrevi os relatórios.
 - Montei um fluxo com Claude Code para gerar planos alinhados à BNCC (instruções de projeto, skills e scripts de verificação gerados pela IA a partir da minha especificação).
 

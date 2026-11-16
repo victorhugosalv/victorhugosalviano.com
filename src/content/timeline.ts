@@ -5,7 +5,7 @@ export const timeline = [
   {
     period: { start: { label: "jun/2026", iso: "2026-06" }, end: { label: "atual" } },
     title: "Estágio Supervisionado em Computação",
-    detail: "Licenciatura · 14 h de aula no ensino médio e observação no fundamental",
+    detail: "Licenciatura · aulas no ensino médio e observação no fundamental",
   },
   {
     period: {

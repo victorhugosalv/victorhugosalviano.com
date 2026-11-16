@@ -60,12 +60,24 @@ describe("conteúdo bate com o curriculo.md", () => {
     for (const repo of projects[0].repos) expect(cv).toContain(repo.href.replace("https://", ""));
   });
 
-  it("o Sobre cita só fatos do currículo (14 h, monitoria de Java, Docenda com LLM)", () => {
+  it("o Sobre cita só fatos do currículo (aulas no estágio, monitoria de Java, Docenda com LLM)", () => {
     const text = about.paragraphs.join(" ");
-    expect(text).toContain("14 horas");
-    expect(cv).toContain("14 h de aula");
+    expect(text).toContain("dei aulas no ensino médio");
+    expect(cv).toContain("Ministrei aulas no 1º ano do ensino médio");
     expect(text).toContain("Docenda");
     expect(cv).toContain("Docenda, plataforma com LLM");
+  });
+});
+
+describe("fatos que saíram do currículo", () => {
+  // 16/11: as horas de aula do estágio saíram do PDF; o site não pode citar o número.
+  it("nenhum arquivo de content/ cita as horas de aula do estágio", () => {
+    const dir = resolve("src/content");
+    for (const file of readdirSync(dir)) {
+      const text = readFileSync(resolve(dir, file), "utf8");
+      expect(text, file).not.toMatch(/\b14\s*(h|horas)\b/i);
+    }
+    expect(cv).not.toMatch(/\b14\s*h\b/);
   });
 });
 
