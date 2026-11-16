@@ -11,7 +11,22 @@ npm ci
 npm run dev        # desenvolvimento em http://localhost:3000
 npm run build      # gera out/
 npm run preview    # serve out/ com os cabeçalhos de public/_headers
+npm run preview:lan  # o mesmo, na rede local (porta 8080), para abrir no celular
 ```
+
+### Testar no celular (`preview:lan`)
+
+- O celular precisa estar **na mesma rede Wi-Fi** do computador. O terminal mostra o endereço (`http://<IP>:8080`).
+- Nesse modo o servidor escuta em todas as interfaces e tira o HSTS e o `upgrade-insecure-requests` da CSP. Sem isso, o navegador trocaria `http://IP:8080` por `https://` e nada carregaria. O `_headers` publicado não muda.
+- É só para teste: feche com Ctrl+C quando terminar.
+
+**WSL 2 no Windows:** com a rede em modo espelhado, o celular enxerga o IP do Windows, mas o firewall do Hyper-V bloqueia conexões de fora. Rode uma vez no PowerShell como administrador:
+
+```powershell
+New-NetFirewallHyperVRule -Name "WSL preview 8080" -DisplayName "WSL preview 8080" -Direction Inbound -VMCreatorId '{40E0AC32-46A5-438A-A0B2-2B479E8F2E90}' -Protocol TCP -LocalPorts 8080
+```
+
+Para fechar a porta depois: `Remove-NetFirewallHyperVRule -Name "WSL preview 8080"`.
 
 ## Verificações
 
@@ -20,7 +35,7 @@ npm run preview    # serve out/ com os cabeçalhos de public/_headers
 | `npm run typecheck`    | TypeScript estrito (`noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`) |
 | `npm run lint`         | ESLint (Next, TypeScript e jsx-a11y no modo _strict_), sem avisos             |
 | `npm run format:check` | Prettier                                                                      |
-| `npm test`             | Vitest: hooks e tokens                                                        |
+| `npm test`             | Vitest: hooks, tokens, conteúdo, pixel art e cabeçalhos do servidor local     |
 | `npm run test:e2e`     | Playwright: teclado, menus, tema, responsividade e axe nos dois temas         |
 | `npm run check:rules`  | Regras de arquitetura (abaixo)                                                |
 | `npm run check`        | Tudo acima, mais o build                                                      |

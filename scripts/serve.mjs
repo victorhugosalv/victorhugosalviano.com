@@ -1,14 +1,22 @@
 // Servidor local da pasta out/, parecido com os arquivos estáticos da Cloudflare:
 // aplica o public/_headers (copiado para out/_headers), redireciona /pasta para /pasta/,
 // responde a página 404.html com status 404 e comprime texto com brotli ou gzip (como a
-// Cloudflare faz), para o Lighthouse medir tamanhos reais. Uso: node scripts/serve.mjs [porta]
+// Cloudflare faz), para o Lighthouse medir tamanhos reais.
+// Uso: node scripts/serve.mjs [porta] [--lan]
+// Com --lan, escuta em todas as interfaces (para abrir no celular, na mesma rede Wi-Fi) e
+// tira o HSTS e o upgrade-insecure-requests, que exigiriam HTTPS.
 import { createReadStream, existsSync, readFileSync, statSync } from "node:fs";
 import { createServer } from "node:http";
+import { networkInterfaces } from "node:os";
 import { extname, join, normalize, resolve, sep } from "node:path";
 import { createBrotliCompress, createGzip } from "node:zlib";
 
+import { forLan, parseHeaderRules } from "./headers.mjs";
+
+const args = process.argv.slice(2);
+const lan = args.includes("--lan");
 const root = resolve("out");
-const port = Number(process.argv[2] ?? process.env.PORT ?? 3000);
+const port = Number(args.find((a) => /^\d+$/.test(a)) ?? process.env.PORT ?? 3000);
 
 const types = {
   ".html": "text/html; charset=utf-8",
@@ -28,30 +36,12 @@ const types = {
   ".pdf": "application/pdf",
 };
 
-/** Lê o _headers no formato da Cloudflare: linha sem recuo = caminho; com recuo = cabeçalho. */
-function readHeaderRules() {
-  const file = join(root, "_headers");
-  if (!existsSync(file)) return [];
-  const rules = [];
-  let current = null;
-  for (const raw of readFileSync(file, "utf8").split("\n")) {
-    if (!raw.trim() || raw.trim().startsWith("#")) continue;
-    if (/^\s/.test(raw)) {
-      const i = raw.indexOf(":");
-      if (current && i > 0) current.headers.push([raw.slice(0, i).trim(), raw.slice(i + 1).trim()]);
-    } else {
-      const pattern = raw
-        .trim()
-        .replace(/[.+?^${}()|[\]\\]/g, "\\$&")
-        .replace(/\*/g, ".*");
-      current = { re: new RegExp(`^${pattern}$`), headers: [] };
-      rules.push(current);
-    }
-  }
-  return rules;
-}
-
-const rules = readHeaderRules();
+const headersFile = join(root, "_headers");
+const rules = existsSync(headersFile)
+  ? parseHeaderRules(readFileSync(headersFile, "utf8")).map((rule) =>
+      lan ? { ...rule, headers: forLan(rule.headers) } : rule,
+    )
+  : [];
 
 const compressible = /^(text\/|application\/(json|xml)|image\/svg)/;
 
@@ -108,6 +98,13 @@ createServer((req, res) => {
     return;
   }
   send(req, res, 404, join(root, "404.html"), pathname);
-}).listen(port, "127.0.0.1", () => {
+}).listen(port, lan ? "0.0.0.0" : "127.0.0.1", () => {
   console.log(`Servindo out/ em http://localhost:${port}`);
+  if (!lan) return;
+  const ips = Object.values(networkInterfaces())
+    .flat()
+    .filter((i) => i && i.family === "IPv4" && !i.internal)
+    .map((i) => `http://${i.address}:${port}`);
+  console.log(`Na rede local (sem HTTPS, só para teste): ${ips.join(" · ") || "sem IP de rede"}`);
+  console.log("Feche com Ctrl+C quando terminar.");
 });

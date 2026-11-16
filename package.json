@@ -12,6 +12,7 @@
     "dev": "next dev",
     "build": "next build && tsx scripts/csp-hashes.ts",
     "preview": "node scripts/serve.mjs 3000",
+    "preview:lan": "node scripts/serve.mjs 8080 --lan",
     "typecheck": "tsc --noEmit",
     "lint": "eslint --max-warnings 0 .",
     "format": "prettier --write .",
