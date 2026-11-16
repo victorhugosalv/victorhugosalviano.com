@@ -1,9 +1,8 @@
 import type { Project } from "./types";
 
 /**
- * Projetos, na ordem da página. Fatos do curriculo.md; textos do Figma v4 aprovado;
- * BichedIn: texto e stack aprovados pelo Victor em 15/11/2026. Páginas do BichedIn e da
- * Docenda: TEXTOS-V6 aprovado em 16/11/2026 (Docenda: só o que é planejado, sem código).
+ * Projetos, na ordem da página, com os mesmos fatos do currículo.
+ * Docenda: só o que é planejado, porque ainda não tem código.
  */
 export const projects = [
   {
@@ -21,13 +20,13 @@ export const projects = [
     stack: ["Java", "Spring Boot", "PostgreSQL", "Next.js", "Docker"],
     repos: [
       {
-        name: "gbrlmzl/api-rinha-v2",
-        href: "https://github.com/gbrlmzl/api-rinha-v2",
+        name: "Los-Coitados/api-rinha-v2",
+        href: "https://github.com/Los-Coitados/api-rinha-v2",
         description: "API · Java e Spring Boot",
       },
       {
-        name: "gbrlmzl/site-rinha-v2",
-        href: "https://github.com/gbrlmzl/site-rinha-v2",
+        name: "Los-Coitados/site-rinha-v2",
+        href: "https://github.com/Los-Coitados/site-rinha-v2",
         description: "Site e painel · Next.js",
       },
     ],

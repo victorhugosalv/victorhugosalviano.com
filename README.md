@@ -1,6 +1,16 @@
 # victorhugosalviano.com
 
-Site pessoal e currículo de Victor Hugo Salviano: estudante de Ciência da Computação (UFPB), engenharia de software e IA.
+Site pessoal e currículo de Victor Hugo Salviano: estudante de Ciência da Computação (UFPB), full stack, engenharia de software e IA.
+
+**No ar:** https://victorhugosalviano.com
+
+## O que tem no site
+
+- **Início:** apresentação, links e o currículo para baixar em PDF ou Markdown (`public/curriculo/`).
+- **Skills** em grupos, com o logo de cada tecnologia no desktop.
+- **Projetos:** Rinha do Campus IV, Docenda e BichedIn, cada um com página própria (como funciona, linha do tempo, minha parte e carrossel de telas), e `/projetos/` com busca e filtros por status e tecnologia.
+- **Sobre**, **Trajetória** e **Contatos**, com o e-mail para copiar.
+- Navegação flutuante: pílula no desktop (com a faixa de projetos), botões no celular, tema claro e escuro.
 
 Site estático feito com **Next.js 16** (App Router com `output: 'export'`), **React 19** e **TypeScript 6** estrito. Não há servidor: o `next build` gera HTML, CSS e JS na pasta `out/`, servida como arquivos estáticos pela Cloudflare.
 
@@ -39,6 +49,17 @@ Para fechar a porta depois: `Remove-NetFirewallHyperVRule -Name "WSL preview 808
 | `npm run test:e2e`     | Playwright: teclado, menus, tema, responsividade e axe nos dois temas         |
 | `npm run check:rules`  | Regras de arquitetura (abaixo)                                                |
 | `npm run check`        | Tudo acima, mais o build                                                      |
+
+## Publicar
+
+O site é servido pela Cloudflare (Workers com arquivos estáticos, sem código no servidor), no domínio próprio, como configurado em `wrangler.jsonc`.
+
+```bash
+npm run check
+npx wrangler deploy   # publica a pasta out/; pede um token de API em CLOUDFLARE_API_TOKEN
+```
+
+O currículo vem de uma pasta separada: `npm run sync-curriculo -- --src <pasta>` copia o PDF e o Markdown para `public/curriculo/`.
 
 ## Arquitetura
 

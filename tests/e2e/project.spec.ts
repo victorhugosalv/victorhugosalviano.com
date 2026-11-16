@@ -48,7 +48,7 @@ test.describe("página da Rinha", () => {
     for (const h of ["Stack", "Repositórios", "Como funciona", "Linha do tempo", "Minha parte"]) {
       await expect(page.getByRole("heading", { level: 2, name: h })).toBeVisible();
     }
-    const repo = page.getByRole("link", { name: /gbrlmzl\/api-rinha-v2.*nova aba/ });
+    const repo = page.getByRole("link", { name: /Los-Coitados\/api-rinha-v2.*nova aba/ });
     await expect(repo).toHaveAttribute("target", "_blank");
     await expect(repo).toHaveAttribute("rel", /noopener/);
     const next = page.getByRole("link", { name: /Próximo projeto/ });

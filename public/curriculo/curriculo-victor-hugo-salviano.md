@@ -1,6 +1,6 @@
 # Victor Hugo Salviano Trajano da Silva
 
-Estudante de Ciência da Computação · Engenharia de software e IA
+Estudante de Ciência da Computação · Full stack, engenharia de software e IA
 
 Alagoinha – PB · [contato@victorhugosalviano.com](mailto:contato@victorhugosalviano.com) · [linkedin.com/in/victor-hugo-salviano](https://linkedin.com/in/victor-hugo-salviano) · [github.com/victorhugosalv](https://github.com/victorhugosalv)
 
@@ -22,14 +22,14 @@ Plataforma web para criar e avaliar planos de aula de Computação com IA. Em de
 
 Repositório: [github.com/victorhugosalv/docenda](https://github.com/victorhugosalv/docenda) (requisitos e decisões de arquitetura)
 
-- Levantei os requisitos com privacidade desde a concepção (LGPD; turma descrita sem identificar alunos) e registrei 8 decisões de arquitetura (ADRs): monólito modular com portas e adaptadores, sessão no servidor e checklist OWASP ASVS nível 1.
+- Levantei os requisitos com privacidade desde a concepção (LGPD; turma descrita sem identificar alunos) e concluí a arquitetura em 11 decisões (ADRs): monólito modular com portas e adaptadores, segurança pelo OWASP ASVS nível 1, logs sem dados pessoais e plano de resposta a incidentes.
 - Projetei a integração com LLM: resposta em JSON validado, proteções do OWASP Top 10 para LLM e teto de gasto por usuário.
 
 ### Rinha do Campus IV · abr/2026 – mai/2026
 
 Sistema de torneios e inscrições do campus, em equipe. Java, Spring Boot, Spring Security/JWT, PostgreSQL, Flyway, JUnit, Mockito, Next.js, React, TypeScript, Cypress, Docker.
 
-Repositórios: [github.com/gbrlmzl/api-rinha-v2](https://github.com/gbrlmzl/api-rinha-v2) e [github.com/gbrlmzl/site-rinha-v2](https://github.com/gbrlmzl/site-rinha-v2)
+Repositórios: [github.com/Los-Coitados/api-rinha-v2](https://github.com/Los-Coitados/api-rinha-v2) e [github.com/Los-Coitados/site-rinha-v2](https://github.com/Los-Coitados/site-rinha-v2)
 
 - Implementei na API REST o módulo de torneios (rotas públicas, de inscrição e de administração para criar, cancelar e gerenciar equipes), com validações, DTOs e consultas JPA.
 - Refatorei os pagamentos para registrar os eventos do webhook do Mercado Pago e adicionei logs com identificador por requisição (MDC).

@@ -26,7 +26,9 @@ describe("conteúdo bate com o curriculo.md", () => {
     expect(cv).toContain(profile.email);
     expect(cv).toContain("github.com/victorhugosalv");
     expect(cv).toContain("linkedin.com/in/victor-hugo-salviano");
-    expect(cv).toContain("Estudante de Ciência da Computação · Engenharia de software e IA");
+    expect(cv).toContain(
+      "Estudante de Ciência da Computação · Full stack, engenharia de software e IA",
+    );
   });
 
   it("o subtítulo do hero e a descrição do site (prévia de link) dizem o mesmo", () => {
