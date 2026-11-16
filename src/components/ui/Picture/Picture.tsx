@@ -12,6 +12,8 @@ interface PictureProps {
   /** imagem da primeira tela: carrega antes e sem lazy */
   priority?: boolean;
   fit?: "cover" | "contain";
+  /** onde o recorte se apoia quando a imagem não cabe inteira */
+  focus?: "center" | "top";
 }
 
 const srcSet = (name: string, widths: readonly number[], ext: string) =>
@@ -27,6 +29,7 @@ export function Picture({
   sizes,
   priority = false,
   fit = "cover",
+  focus = "center",
 }: PictureProps) {
   const largest = widths[widths.length - 1] ?? width;
   return (
@@ -42,7 +45,7 @@ export function Picture({
         loading={priority ? "eager" : "lazy"}
         fetchPriority={priority ? "high" : "auto"}
         decoding="async"
-        className={`${styles.img} ${styles[fit]}`}
+        className={`${styles.img} ${styles[fit]} ${focus === "top" ? styles.top : ""}`}
       />
     </picture>
   );

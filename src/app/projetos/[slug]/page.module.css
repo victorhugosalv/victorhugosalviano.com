@@ -1,0 +1,40 @@
+.main {
+  padding-top: calc(var(--space-16) + var(--floating-size) + var(--space-16));
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-48);
+}
+
+/* Celular: Stack e Repositórios logo abaixo da capa. Desktop: coluna lateral à direita. */
+.columns {
+  display: grid;
+  grid-template-areas:
+    "aside"
+    "body";
+  gap: var(--space-48);
+}
+
+.aside {
+  grid-area: aside;
+}
+
+.body {
+  grid-area: body;
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .main {
+    padding-top: calc(var(--space-20) + var(--floating-size) + var(--space-32));
+  }
+
+  .columns {
+    grid-template-columns: minmax(0, 1fr) 380px;
+    grid-template-areas: "body aside";
+    align-items: start;
+    column-gap: var(--space-80);
+  }
+}

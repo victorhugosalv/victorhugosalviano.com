@@ -41,6 +41,10 @@
   --text-lead: 500 18px / 1.5 var(--font-body);
   --text-section-title: 600 26px / 1.1 var(--font-display);
   --text-card-title: 600 21px / 1.2 var(--font-display);
+  --text-page-title: 600 32px / 1.1 var(--font-display);
+  --text-page-title-tracking: 0;
+  --text-page-lead: 400 17px / 1.55 var(--font-body);
+  --text-subtitle: 600 22px / 1.2 var(--font-display);
   --text-menu-item: 600 22px / 1.2 var(--font-display);
   --text-small-title: 600 16px / 1.25 var(--font-display);
   --text-body: 400 15px / 1.6 var(--font-body);
@@ -104,6 +108,10 @@
     --text-lead: 500 21px / 1.5 var(--font-body);
     --text-section-title: 600 40px / 1.1 var(--font-display);
     --text-card-title: 600 26px / 1.2 var(--font-display);
+    --text-page-title: 600 56px / 1.04 var(--font-display);
+    --text-page-title-tracking: -0.5px;
+    --text-page-lead: 400 20px / 1.55 var(--font-body);
+    --text-subtitle: 600 26px / 1.2 var(--font-display);
     --text-body: 400 17px / 1.65 var(--font-body);
   }
 }

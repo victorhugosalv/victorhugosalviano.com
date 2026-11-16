@@ -1,5 +1,5 @@
 /** Páginas que existem no site. Cada fase acrescenta as suas. */
-export const PAGES = ["/"] as const;
+export const PAGES = ["/", "/projetos/rinha-do-campus-iv/"] as const;
 
 export const THEMES = ["dark", "light"] as const;
 export type ThemeName = (typeof THEMES)[number];

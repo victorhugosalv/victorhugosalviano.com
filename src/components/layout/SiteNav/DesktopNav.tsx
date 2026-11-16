@@ -31,8 +31,8 @@ export function DesktopNav({ active }: { active: string | null }) {
   const contactPosition = useViewportPosition(anchors.contact);
   const showContact = pastHero && contactPosition !== "visible";
   return (
-    <div className={styles.desktop}>
-      <nav aria-label={ui.nav.label} className={styles.pill}>
+    <nav aria-label={ui.nav.label} className={styles.desktop}>
+      <div className={styles.pill}>
         <ul className={styles.list}>
           {desktopLinks.left.map((link) => (
             <PillLink key={link.id} link={link} active={active === link.id} />
@@ -47,7 +47,7 @@ export function DesktopNav({ active }: { active: string | null }) {
             <PillLink key={link.id} link={link} active={active === link.id} />
           ))}
         </ul>
-      </nav>
+      </div>
       <div className={styles.theme}>
         <ThemeToggleFloating />
       </div>
@@ -56,6 +56,6 @@ export function DesktopNav({ active }: { active: string | null }) {
           <Icon name="message" size={20} tone="chat" />
         </FloatingButton>
       </div>
-    </div>
+    </nav>
   );
 }

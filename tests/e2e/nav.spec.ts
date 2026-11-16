@@ -113,17 +113,21 @@ test.describe("navegação no celular", () => {
       await page.keyboard.press("Enter");
       await expect(toggle).toHaveAttribute("aria-expanded", "true");
       await expect(toggle).toHaveAccessibleName("Fechar menu");
-      const nav = page.locator(
-        "nav#" + (await toggle.getAttribute("aria-controls"))?.replace(/:/g, "\\:"),
-      );
+      const panelId = await toggle.getAttribute("aria-controls");
+      const nav = page.locator(`[id="${panelId}"]`);
       await expect(nav).toBeVisible();
       await expect(nav.getByRole("link", { name: "Início" })).toBeFocused();
       // 6 links + tema + botão de fechar: o Tab dá a volta e não sai do menu.
       for (let i = 0; i < 9; i++) {
         await page.keyboard.press("Tab");
-        const inside = await page.evaluate(
-          () => !!document.activeElement?.closest("nav, button[aria-expanded]"),
-        );
+        const inside = await page.evaluate((id) => {
+          const el = document.activeElement;
+          return (
+            !!el &&
+            (!!document.getElementById(id ?? "")?.contains(el) ||
+              el.getAttribute("aria-controls") === id)
+          );
+        }, panelId);
         expect(inside).toBe(true);
       }
       await page.keyboard.press("Escape");
@@ -137,7 +141,7 @@ test.describe("navegação no celular", () => {
     await gotoWithTheme(page, "/", "dark");
     await scrollToId(page, "skills");
     await menuButton(page).click();
-    const nav = page.getByRole("navigation", { name: "Navegação principal" }).last();
+    const nav = page.locator(`[id="${await menuButton(page).getAttribute("aria-controls")}"]`);
     await expect(nav).toBeVisible();
     expect((await nav.boundingBox())?.y).toBeLessThan(40);
     await nav.getByRole("button", { name: "Modo claro" }).click();

@@ -1,0 +1,24 @@
+.main {
+  display: grid;
+  min-height: 70vh;
+  align-items: center;
+  padding-block: var(--space-120) var(--space-64);
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-16);
+  max-width: 560px;
+}
+
+.title {
+  font: var(--text-page-title);
+  letter-spacing: var(--text-page-title-tracking);
+}
+
+.text {
+  color: var(--color-text-muted);
+  font: var(--text-page-lead);
+}

@@ -9,10 +9,13 @@
   height: 100%;
 }
 
-/* Recorte centrado um pouco acima do meio: rostos e logos ficam no alto. */
 .cover {
   object-fit: cover;
-  object-position: 50% 30%;
+}
+
+/* Recorte puxado para o alto (fotos de pessoas: o rosto fica no quadro). */
+.top {
+  object-position: 50% 25%;
 }
 
 .contain {

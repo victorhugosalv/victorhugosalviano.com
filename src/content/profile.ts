@@ -15,6 +15,7 @@ export const profile = {
     width: 1000,
     height: 1160,
     alt: "Victor sorrindo, de blazer escuro",
+    focus: "top",
   } satisfies ResponsiveImage,
   email,
   links: {

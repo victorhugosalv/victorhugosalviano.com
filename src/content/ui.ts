@@ -29,3 +29,11 @@ export const contactTexts = {
   copied: "E-mail copiado",
   copyFailed: "Não deu para copiar; o endereço está acima",
 } as const;
+
+export const notFoundTexts = {
+  title: "Página não encontrada",
+  label: "Erro 404",
+  text: "Esse endereço não existe (ou mudou). O resto do site continua aqui.",
+  back: "Voltar ao início",
+  metaTitle: "Página não encontrada · Victor Hugo Salviano",
+} as const;

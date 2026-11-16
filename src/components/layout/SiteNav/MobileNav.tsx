@@ -55,7 +55,12 @@ export function MobileNav({ active }: { active: string | null }) {
   const current = active ?? anchors.top;
 
   return (
-    <div className={styles.mobile} data-scrolled={scrolled} data-open={isOpen}>
+    <nav
+      aria-label={ui.nav.label}
+      className={styles.mobile}
+      data-scrolled={scrolled}
+      data-open={isOpen}
+    >
       <div className={`${styles.slot} ${styles.left}`}>
         <FloatingButton href={`/#${anchors.top}`} label={ui.nav.homeButton}>
           <Icon name="home" size={20} />
@@ -74,7 +79,7 @@ export function MobileNav({ active }: { active: string | null }) {
             <Icon name={isOpen ? "x" : "menu"} size={20} />
           </FloatingButton>
         </div>
-        <nav id={panelId} aria-label={ui.nav.label} hidden={!isOpen} className={styles.panel}>
+        <div id={panelId} hidden={!isOpen} className={styles.panel}>
           <p className={styles.title}>{ui.nav.menuTitle}</p>
           <ul className={styles.list}>
             {mobileLinks.map((link, index) => (
@@ -94,8 +99,8 @@ export function MobileNav({ active }: { active: string | null }) {
           <div className={styles.theme}>
             <ThemeToggleRow />
           </div>
-        </nav>
+        </div>
       </div>
-    </div>
+    </nav>
   );
 }

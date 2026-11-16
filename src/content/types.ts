@@ -20,6 +20,8 @@ export interface ResponsiveImage {
   readonly width: number;
   readonly height: number;
   readonly alt: string;
+  /** onde apoiar o recorte (fotos de pessoas: "top") */
+  readonly focus?: "center" | "top";
 }
 
 export interface Link {

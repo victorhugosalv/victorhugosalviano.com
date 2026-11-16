@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import type { ComponentType } from "react";
 
 import { Footer } from "@/components/layout/Footer";
@@ -12,6 +13,8 @@ import { Container, Stack } from "@/components/ui/Layout";
 import { anchors, sections, type SectionId } from "@/content/sections";
 
 import styles from "./page.module.css";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 /** Conteúdo de cada seção. A ordem e os títulos vêm de content/sections.ts. */
 const bodies: Record<Exclude<SectionId, "contatos">, ComponentType> = {
