@@ -17,7 +17,7 @@ export function ProjectAside({ project, page }: { project: Project; page: Projec
     <aside className={styles.aside}>
       <section aria-labelledby="stack-titulo" className={styles.block}>
         <h2 id="stack-titulo" className={styles.title}>
-          {projectTexts.stack}
+          {page.stackTitle ?? projectTexts.stack}
         </h2>
         <Cluster as="ul" gap={8}>
           {page.stack.map((name) => {
@@ -30,23 +30,28 @@ export function ProjectAside({ project, page }: { project: Project; page: Projec
           })}
         </Cluster>
       </section>
-      {project.repos.length > 0 ? (
+      {project.repos.length > 0 || project.note ? (
         <section aria-labelledby="repos-titulo" className={styles.block}>
           <h2 id="repos-titulo" className={styles.title}>
             {projectTexts.repos}
           </h2>
-          <ul className={styles.repos}>
-            {project.repos.map((repo) => (
-              <li key={repo.href}>
-                <RepoCard
-                  name={repo.name}
-                  href={repo.href}
-                  newTabLabel={projectTexts.newTab}
-                  {...(repo.description ? { description: repo.description } : {})}
-                />
-              </li>
-            ))}
-          </ul>
+          {/* Sem link: "Repositório privado" ou "Repositório em breve". */}
+          {project.repos.length > 0 ? (
+            <ul className={styles.repos}>
+              {project.repos.map((repo) => (
+                <li key={repo.href}>
+                  <RepoCard
+                    name={repo.name}
+                    href={repo.href}
+                    newTabLabel={projectTexts.newTab}
+                    {...(repo.description ? { description: repo.description } : {})}
+                  />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className={styles.note}>{project.note}</p>
+          )}
         </section>
       ) : null}
     </aside>

@@ -90,6 +90,8 @@ export interface ProjectPage {
   readonly sections: readonly ProjectPageSection[];
   /** stack completa, na coluna lateral */
   readonly stack: readonly string[];
+  /** título da stack quando não é "Stack" (ex.: "Stack planejada", projeto sem código) */
+  readonly stackTitle?: string;
 }
 
 export interface ProjectPageSection {

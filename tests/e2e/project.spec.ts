@@ -6,10 +6,12 @@ import { THEMES } from "./pages";
 const RINHA = "/projetos/rinha-do-campus-iv/";
 
 test.describe("página da Rinha", () => {
-  test("só a Rinha tem página; outro slug dá 404", async ({ page }) => {
-    const ok = await page.goto(RINHA);
-    expect(ok?.status()).toBe(200);
-    for (const slug of ["docenda", "bichedin", "qualquer-coisa"]) {
+  test("todo projeto tem página; outro slug dá 404", async ({ page }) => {
+    for (const slug of ["rinha-do-campus-iv", "docenda", "bichedin"]) {
+      const ok = await page.goto(`/projetos/${slug}/`);
+      expect(ok?.status(), slug).toBe(200);
+    }
+    for (const slug of ["qualquer-coisa"]) {
       const res = await page.goto(`/projetos/${slug}/`);
       expect(res?.status(), slug).toBe(404);
       await expect(page.getByRole("heading", { level: 1 })).toHaveText("Página não encontrada");
@@ -48,7 +50,7 @@ test.describe("página da Rinha", () => {
     await expect(repo).toHaveAttribute("target", "_blank");
     await expect(repo).toHaveAttribute("rel", /noopener/);
     const next = page.getByRole("link", { name: /Próximo projeto/ });
-    await expect(next).toHaveAttribute("href", "/#docenda");
+    await expect(next).toHaveAttribute("href", "/projetos/docenda/");
     await expect(page.locator("time[datetime='2026-04']").first()).toBeVisible();
   });
 
@@ -61,7 +63,22 @@ test.describe("página da Rinha", () => {
 
   test("'Ver mais' no início abre a página", async ({ page }) => {
     await gotoWithTheme(page, "/", "dark");
-    await page.getByRole("link", { name: /Ver mais/ }).click();
+    await page
+      .getByRole("link", { name: /Ver mais/ })
+      .first()
+      .click();
     await expect(page).toHaveURL(new RegExp(`${RINHA}$`));
+  });
+
+  test("sem link de repositório, a página diz se é privado ou em breve", async ({ page }) => {
+    await gotoWithTheme(page, "/projetos/bichedin/", "dark");
+    const repos = page.getByRole("region", { name: "Repositórios" });
+    await expect(repos).toContainText("Repositório privado");
+    await expect(repos.getByRole("link")).toHaveCount(0);
+    await gotoWithTheme(page, "/projetos/docenda/", "dark");
+    await expect(page.getByRole("heading", { name: "Stack planejada" })).toBeVisible();
+    await expect(page.getByRole("region", { name: "Repositórios" })).toContainText(
+      "Repositório em breve",
+    );
   });
 });

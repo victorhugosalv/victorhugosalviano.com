@@ -28,3 +28,8 @@
     top: calc(var(--space-20) + var(--floating-size) + var(--space-24));
   }
 }
+
+.note {
+  color: var(--color-text-muted);
+  font: var(--text-note);
+}

@@ -22,9 +22,14 @@ export function ProjectBody({ page }: { page: ProjectPage }) {
               <ol className={styles.milestones}>
                 {section.milestones.map((m) => (
                   <li key={m.text} className={styles.milestone}>
-                    <time {...(m.date.iso ? { dateTime: m.date.iso } : {})} className={styles.date}>
-                      {m.date.label}
-                    </time>
+                    {/* "Próximo" não é uma data: sem iso, vira texto comum. */}
+                    {m.date.iso ? (
+                      <time dateTime={m.date.iso} className={styles.date}>
+                        {m.date.label}
+                      </time>
+                    ) : (
+                      <span className={styles.date}>{m.date.label}</span>
+                    )}
                     <p>{m.text}</p>
                   </li>
                 ))}

@@ -21,11 +21,10 @@ test.describe("página inicial", () => {
       page.getByRole("img", { name: "Victor sorrindo, de blazer escuro" }),
     ).toBeVisible();
     await expect(page.locator("article")).toHaveCount(3);
-    await expect(page.getByRole("link", { name: /Ver mais/ })).toHaveCount(1);
-    await expect(page.getByRole("link", { name: /Ver mais/ })).toHaveAttribute(
-      "href",
-      "/projetos/rinha-do-campus-iv/",
-    );
+    // Todo projeto tem página: um "Ver mais" por cartão.
+    const more = page.getByRole("link", { name: /Ver mais/ });
+    await expect(more).toHaveCount(3);
+    await expect(more.first()).toHaveAttribute("href", "/projetos/rinha-do-campus-iv/");
   });
 
   for (const theme of THEMES) {

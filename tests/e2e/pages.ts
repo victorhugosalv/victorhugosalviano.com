@@ -1,5 +1,11 @@
 /** Páginas que existem no site. Cada fase acrescenta as suas. */
-export const PAGES = ["/", "/projetos/", "/projetos/rinha-do-campus-iv/"] as const;
+export const PAGES = [
+  "/",
+  "/projetos/",
+  "/projetos/rinha-do-campus-iv/",
+  "/projetos/docenda/",
+  "/projetos/bichedin/",
+] as const;
 
 export const THEMES = ["dark", "light"] as const;
 export type ThemeName = (typeof THEMES)[number];

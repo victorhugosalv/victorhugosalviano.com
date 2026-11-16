@@ -105,8 +105,10 @@ describe("regras do design", () => {
     );
   });
 
-  it("'Ver mais' só para projetos com página (hoje, só a Rinha)", () => {
-    expect(projects.filter((p) => "page" in p).map((p) => p.slug)).toEqual(["rinha-do-campus-iv"]);
+  it("todo projeto tem página (16/11/2026), então todos têm 'Ver mais'", () => {
+    expect(projects.filter((p) => "page" in p).map((p) => p.slug)).toEqual(
+      projects.map((p) => p.slug),
+    );
   });
 });
 

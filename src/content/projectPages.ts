@@ -3,7 +3,7 @@ import type { Project, ProjectPage } from "./types";
 
 const all: readonly Project[] = projects;
 
-/** Projetos que têm página própria (hoje, só a Rinha). */
+/** Projetos que têm página própria (todos, desde 16/11/2026). */
 export const projectsWithPage = all.filter(
   (p): p is Project & { page: ProjectPage } => p.page !== undefined,
 );
