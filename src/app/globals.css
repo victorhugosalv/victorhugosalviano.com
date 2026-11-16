@@ -1,5 +1,6 @@
 @import "../styles/reset.css";
 @import "../styles/tokens.css";
+@import "../styles/brand-colors.css";
 
 html {
   background: var(--color-bg);
@@ -36,4 +37,9 @@ body {
     animation-iteration-count: 1;
     transition-duration: 0.01ms;
   }
+}
+
+/* Menu do celular aberto: a página atrás não rola. */
+html[data-menu-open] {
+  overflow: hidden;
 }

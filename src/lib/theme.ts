@@ -16,3 +16,19 @@ export function isTheme(value: unknown): value is Theme {
 export const themeInitScript = `(function(){try{var t=localStorage.getItem(${JSON.stringify(
   THEME_STORAGE_KEY,
 )});if(t!=="dark"&&t!=="light"){t=window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.setAttribute("data-theme",t)}catch(e){}})();`;
+
+/** Tema aplicado agora no <html> (o script do <head> já o definiu). */
+export function readTheme(): Theme {
+  const value = document.documentElement.getAttribute("data-theme");
+  return isTheme(value) ? value : "dark";
+}
+
+/** Aplica o tema e guarda a escolha (se o armazenamento estiver disponível). */
+export function applyTheme(theme: Theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+  } catch {
+    // Armazenamento bloqueado: o tema vale só nesta visita.
+  }
+}

@@ -1,0 +1,42 @@
+.group {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.main,
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-min);
+  color: var(--color-text);
+  font: var(--text-button);
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.main {
+  gap: var(--space-8);
+  padding: 0 var(--space-16);
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.toggle {
+  justify-content: center;
+  width: var(--touch-min);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.main:hover,
+.toggle:hover,
+.open {
+  background: var(--color-surface-2);
+}
+
+.divider {
+  width: 1px;
+  background: var(--color-line);
+}

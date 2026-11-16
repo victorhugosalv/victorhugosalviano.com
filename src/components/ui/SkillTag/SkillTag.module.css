@@ -1,0 +1,30 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-4) var(--space-8);
+  border: 1px solid var(--color-text);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font: var(--text-skill);
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.tag:hover {
+  border-color: var(--brand, var(--color-text));
+  background: color-mix(in srgb, var(--brand, var(--color-text)) 16%, transparent);
+}
+
+/* Logos só no desktop (Figma v4). */
+.logo {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .logo {
+    display: inline-flex;
+  }
+}

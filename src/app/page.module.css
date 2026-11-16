@@ -1,0 +1,12 @@
+.main {
+  padding-block: var(--space-80) var(--space-64);
+}
+
+/* Provisório (fase 2): altura para testar a navegação antes das seções da fase 3. */
+.hero {
+  min-height: 90vh;
+}
+
+.main section {
+  min-height: 80vh;
+}

@@ -1,0 +1,12 @@
+.heading {
+  font: var(--text-section-title);
+  color: var(--color-text);
+}
+
+.start {
+  text-align: start;
+}
+
+.center {
+  text-align: center;
+}

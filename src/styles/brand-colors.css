@@ -1,0 +1,153 @@
+/* Gerado por scripts/brand-colors.ts. Não edite à mão. */
+
+[data-brand="claude"] {
+  --brand: #d97757;
+}
+
+[data-brand="css"] {
+  --brand: var(--color-text);
+}
+
+[data-brand="cypress"] {
+  --brand: #69d3a7;
+}
+
+[data-brand="docker"] {
+  --brand: #2496ed;
+}
+
+[data-brand="flyway"] {
+  --brand: #cc0200;
+}
+
+[data-brand="git"] {
+  --brand: #f03c2e;
+}
+
+[data-brand="github"] {
+  --brand: var(--color-text);
+}
+
+[data-brand="html"] {
+  --brand: #e34f26;
+}
+
+[data-brand="java"] {
+  --brand: var(--color-text);
+}
+
+[data-brand="javascript"] {
+  --brand: #f7df1e;
+}
+
+[data-brand="junit"] {
+  --brand: #25a162;
+}
+
+[data-brand="jwt"] {
+  --brand: var(--color-text);
+}
+
+[data-brand="linkedin"] {
+  --brand: #0a66c2;
+}
+
+[data-brand="mysql"] {
+  --brand: #4479a1;
+}
+
+[data-brand="nextjs"] {
+  --brand: var(--color-text);
+}
+
+[data-brand="nodejs"] {
+  --brand: #5fa04e;
+}
+
+[data-brand="postgresql"] {
+  --brand: #4169e1;
+}
+
+[data-brand="python"] {
+  --brand: #3776ab;
+}
+
+[data-brand="react"] {
+  --brand: #61dafb;
+}
+
+[data-brand="springboot"] {
+  --brand: #6db33f;
+}
+
+[data-brand="springsecurity"] {
+  --brand: #6db33f;
+}
+
+[data-brand="tailwind"] {
+  --brand: #06b6d4;
+}
+
+[data-brand="typescript"] {
+  --brand: #3178c6;
+}
+
+:root[data-theme="light"] [data-brand="claude"] {
+  --brand: var(--color-text);
+}
+
+:root[data-theme="light"] [data-brand="css"] {
+  --brand: #663399;
+}
+
+:root[data-theme="light"] [data-brand="cypress"] {
+  --brand: var(--color-text);
+}
+
+:root[data-theme="light"] [data-brand="docker"] {
+  --brand: var(--color-text);
+}
+
+:root[data-theme="light"] [data-brand="github"] {
+  --brand: #181717;
+}
+
+:root[data-theme="light"] [data-brand="java"] {
+  --brand: #000000;
+}
+
+:root[data-theme="light"] [data-brand="javascript"] {
+  --brand: var(--color-text);
+}
+
+:root[data-theme="light"] [data-brand="junit"] {
+  --brand: var(--color-text);
+}
+
+:root[data-theme="light"] [data-brand="jwt"] {
+  --brand: #000000;
+}
+
+:root[data-theme="light"] [data-brand="nextjs"] {
+  --brand: #000000;
+}
+
+:root[data-theme="light"] [data-brand="nodejs"] {
+  --brand: var(--color-text);
+}
+
+:root[data-theme="light"] [data-brand="react"] {
+  --brand: var(--color-text);
+}
+
+:root[data-theme="light"] [data-brand="springboot"] {
+  --brand: var(--color-text);
+}
+
+:root[data-theme="light"] [data-brand="springsecurity"] {
+  --brand: var(--color-text);
+}
+
+:root[data-theme="light"] [data-brand="tailwind"] {
+  --brand: var(--color-text);
+}

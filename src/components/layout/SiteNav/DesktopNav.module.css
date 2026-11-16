@@ -1,0 +1,111 @@
+.desktop {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .desktop {
+    display: block;
+  }
+}
+
+/* Mesma borda direita do conteúdo (1200 px centralizados). */
+.theme,
+.contact {
+  position: fixed;
+  right: max(var(--page-gutter), (100% - var(--page-max)) / 2);
+  z-index: 50;
+}
+
+.theme {
+  top: var(--space-20);
+}
+
+.contact {
+  bottom: var(--space-32);
+  transition:
+    opacity var(--duration-medium) var(--ease-out),
+    visibility var(--duration-medium);
+}
+
+.contact[data-visible="false"] {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.pill {
+  position: fixed;
+  top: var(--space-20);
+  left: 50%;
+  z-index: 50;
+  translate: -50% 0;
+  padding: 0 var(--space-12);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--color-bg) 55%, transparent);
+  backdrop-filter: blur(16px) saturate(1.6);
+  -webkit-backdrop-filter: blur(16px) saturate(1.6);
+  box-shadow: var(--shadow-float);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .pill {
+    background: var(--color-bg);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.link,
+.logo {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 var(--space-12);
+  border-radius: var(--radius-full);
+  text-decoration: none;
+}
+
+.link {
+  position: relative;
+  color: var(--color-text-muted);
+  font: var(--text-button);
+  white-space: nowrap;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  right: var(--space-12);
+  bottom: 8px;
+  left: var(--space-12);
+  height: 2px;
+  background: transparent;
+}
+
+.link:hover,
+.active {
+  color: var(--color-text);
+}
+
+.active::after {
+  background: var(--color-red);
+}
+
+.logo {
+  gap: var(--space-6);
+  color: var(--color-text);
+  font: var(--text-logo);
+}
+
+.logoBar {
+  width: 4px;
+  height: 16px;
+  background: var(--color-red);
+}

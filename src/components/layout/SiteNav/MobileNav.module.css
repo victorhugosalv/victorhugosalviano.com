@@ -1,0 +1,107 @@
+.mobile {
+  --edge: var(--space-16);
+  --bottom-shift: calc(100vh - var(--floating-size) - 2 * var(--edge));
+}
+
+@supports (height: 100dvh) {
+  .mobile {
+    --bottom-shift: calc(
+      100dvh - var(--floating-size) - 2 * var(--edge) - env(safe-area-inset-bottom)
+    );
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile {
+    display: none;
+  }
+}
+
+.slot {
+  position: fixed;
+  top: var(--edge);
+  z-index: 50;
+  transition: translate var(--duration-medium) var(--ease-out);
+}
+
+.left {
+  left: var(--edge);
+}
+
+.right {
+  right: var(--edge);
+}
+
+/* Depois do hero, os dois botões descem para os cantos de baixo (alcance do polegar). */
+.mobile[data-scrolled="true"] .slot {
+  translate: 0 var(--bottom-shift);
+}
+
+.toggle {
+  z-index: 70;
+}
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: var(--color-scrim);
+}
+
+.panel {
+  position: fixed;
+  top: calc(var(--edge) + var(--floating-size) + var(--space-8));
+  right: var(--edge);
+  left: var(--edge);
+  z-index: 70;
+  max-height: calc(100dvh - 2 * var(--floating-size) - 4 * var(--edge));
+  overflow-y: auto;
+  padding: var(--space-16) var(--space-20) var(--space-20);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-menu);
+  animation: drop var(--duration-medium) var(--ease-out);
+}
+
+/* Depois de rolar, o botão fica embaixo e o menu cola no topo. */
+.mobile[data-scrolled="true"] .panel {
+  top: var(--edge);
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+@keyframes drop {
+  from {
+    opacity: 0;
+    translate: 0 -12px;
+  }
+}
+
+.title {
+  margin-bottom: var(--space-8);
+  color: var(--color-text-muted);
+  font: var(--text-pixel);
+  letter-spacing: var(--text-pixel-tracking);
+  text-transform: uppercase;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  border-bottom: 1px solid var(--color-line);
+  color: var(--color-text);
+  font: var(--text-menu-item);
+  text-decoration: none;
+}
+
+.link[aria-current] {
+  color: var(--color-red-text);
+}
+
+.theme {
+  padding-top: var(--space-12);
+}

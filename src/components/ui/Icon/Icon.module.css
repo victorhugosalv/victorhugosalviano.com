@@ -1,0 +1,19 @@
+.icon {
+  flex: none;
+}
+
+.inherit {
+  color: inherit;
+}
+
+.sun {
+  color: var(--color-icon-sun);
+}
+
+.moon {
+  color: var(--color-icon-moon);
+}
+
+.chat {
+  color: var(--color-chat);
+}

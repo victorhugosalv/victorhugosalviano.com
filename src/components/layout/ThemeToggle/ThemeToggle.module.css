@@ -1,0 +1,36 @@
+.whenDark,
+.whenLight {
+  display: inline-flex;
+}
+
+:global(:root[data-theme="light"]) .whenDark,
+:global(:root[data-theme="dark"]) .whenLight {
+  display: none;
+}
+
+.row {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-12);
+  min-height: var(--touch-min);
+  color: var(--color-text-muted);
+  font: var(--text-button);
+}
+
+.row:hover {
+  color: var(--color-text);
+}
+
+.box {
+  display: inline-grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+/* Sem JavaScript não há data-theme: mostra só o sol. */
+:global(:root:not([data-theme])) .whenLight {
+  display: none;
+}

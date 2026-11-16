@@ -75,7 +75,8 @@ for (const { path, text } of files) {
       /<\/?[A-Za-z][\w.]*(?:\s[^<>]*)?>([^<>{}]+)(?=<\/?[A-Za-z])/g,
     )) {
       const t = (m[1] ?? "").trim();
-      if (/\p{L}{2,}/u.test(t)) report(path, `texto fixo "${t.slice(0, 40)}"`);
+      // Genéricos do TypeScript (useRef<T>(null); …) também casam; código tem ";" ou "=".
+      if (/\p{L}{2,}/u.test(t) && !/[;=]/.test(t)) report(path, `texto fixo "${t.slice(0, 40)}"`);
     }
     // Texto literal como filho: <p>{"Olá"}</p>
     for (const m of noComments.matchAll(/>\s*\{\s*(["'`])([^"'`]*\p{L}{2,}[^"'`]*)\1\s*\}/gu)) {

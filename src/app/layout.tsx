@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
+import { Footer } from "@/components/layout/Footer";
+import { SiteNav } from "@/components/layout/SiteNav";
+import { SkipLink } from "@/components/layout/SkipLink";
 import { site } from "@/content/site";
 import { themeInitScript } from "@/lib/theme";
 
@@ -21,6 +24,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
+  viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: dark)", color: "#0e0e10" },
     { media: "(prefers-color-scheme: light)", color: "#f3efe6" },
@@ -38,7 +42,12 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         {/* eslint-disable-next-line react/no-danger -- script fixo do tema; hash liberado na CSP */}
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
-      <body>{children}</body>
+      <body>
+        <SkipLink />
+        <SiteNav />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
