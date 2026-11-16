@@ -6,7 +6,7 @@ import { SiteNav } from "@/components/layout/SiteNav";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { IntroLoader } from "@/components/loader/IntroLoader";
 import { site } from "@/content/site";
-import { themeInitScript } from "@/lib/theme";
+import { THEME_COLORS, themeInitScript } from "@/lib/theme";
 
 import { plex, silkscreen, tektur } from "./fonts";
 import "./globals.css";
@@ -27,8 +27,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0e0e10" },
-    { media: "(prefers-color-scheme: light)", color: "#f3efe6" },
+    { media: "(prefers-color-scheme: dark)", color: THEME_COLORS.dark },
+    { media: "(prefers-color-scheme: light)", color: THEME_COLORS.light },
   ],
 };
 

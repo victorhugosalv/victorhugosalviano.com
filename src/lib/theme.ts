@@ -7,6 +7,9 @@ export const THEME_STORAGE_KEY = STORAGE_KEYS.theme;
 /** Atributo no <html> enquanto a abertura do NSX (1ª visita) está na tela. */
 export const INTRO_ATTRIBUTE = "data-intro";
 
+/** Cor da barra do navegador no celular (<meta name="theme-color">): o fundo de cada tema. */
+export const THEME_COLORS: Record<Theme, string> = { dark: "#0e0e10", light: "#f3efe6" };
+
 export function isTheme(value: unknown): value is Theme {
   return value === "dark" || value === "light";
 }
@@ -31,9 +34,20 @@ export function readTheme(): Theme {
   return isTheme(value) ? value : "dark";
 }
 
+/**
+ * A barra do navegador acompanha o tema escolhido no botão, e não só o do sistema:
+ * as duas <meta name="theme-color"> (uma por media query) passam a ter a cor do tema.
+ */
+export function syncThemeColor(theme: Theme) {
+  for (const meta of document.querySelectorAll('meta[name="theme-color"]')) {
+    meta.setAttribute("content", THEME_COLORS[theme]);
+  }
+}
+
 /** Aplica o tema e guarda a escolha (se o armazenamento estiver disponível). */
 export function applyTheme(theme: Theme) {
   document.documentElement.setAttribute("data-theme", theme);
+  syncThemeColor(theme);
   try {
     localStorage.setItem(THEME_STORAGE_KEY, theme);
   } catch {
