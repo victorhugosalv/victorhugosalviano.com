@@ -8,6 +8,7 @@ import { about } from "@/content/about";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
 import { sections } from "@/content/sections";
+import { site } from "@/content/site";
 import { skillGroups } from "@/content/skills";
 import { timeline } from "@/content/timeline";
 import type { SkillGroup } from "@/content/types";
@@ -26,6 +27,11 @@ describe("conteúdo bate com o curriculo.md", () => {
     expect(cv).toContain("github.com/victorhugosalv");
     expect(cv).toContain("linkedin.com/in/victor-hugo-salviano");
     expect(cv).toContain("Estudante de Ciência da Computação · Engenharia de software e IA");
+  });
+
+  it("o subtítulo do hero e a descrição do site (prévia de link) dizem o mesmo", () => {
+    expect(profile.headline).toContain("Full stack");
+    expect(site.description.startsWith(profile.headline)).toBe(true);
   });
 
   it("todas as skills do PDF estão no site (o site tem também HTML, CSS e Tailwind CSS)", () => {

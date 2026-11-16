@@ -8,7 +8,7 @@ export const profile = {
   /** o nome em duas linhas, como no Figma */
   nameLines: ["Victor Hugo", "Salviano"],
   fullName: "Victor Hugo Salviano Trajano da Silva",
-  headline: "Estudante de Ciência da Computação (UFPB) · Engenharia de software e IA",
+  headline: "Estudante de Ciência da Computação (UFPB) · Full stack, engenharia de software e IA",
   photo: {
     name: "foto",
     widths: [400, 700, 1000],
