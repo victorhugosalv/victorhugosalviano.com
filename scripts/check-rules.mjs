@@ -69,7 +69,7 @@ for (const { path, text } of files) {
   // Texto fixo: só em content/. Em componentes e rotas, nada de texto entre tags
   // nem atributos de texto com valor literal.
   if (path.endsWith(".tsx") && layer !== "content") {
-    const noComments = text.replace(/\{\/\*[\s\S]*?\*\/\}/g, "").replace(/\/\/.*$/gm, "");
+    const noComments = text.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "");
     // Texto entre uma tag JSX e a próxima (<p>Olá</p>), sem pegar "a > b && c < d".
     for (const m of noComments.matchAll(
       /<\/?[A-Za-z][\w.]*(?:\s[^<>]*)?>([^<>{}]+)(?=<\/?[A-Za-z])/g,

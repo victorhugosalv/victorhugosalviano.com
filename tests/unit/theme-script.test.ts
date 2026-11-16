@@ -32,3 +32,25 @@ describe("script do tema no <head>", () => {
     expect(isTheme(null)).toBe(false);
   });
 });
+
+describe("abertura do NSX no script do <head>", () => {
+  function run(reduced: boolean) {
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn((q: string) => ({ matches: q.includes("reduced-motion") ? reduced : false })),
+    );
+    new Function(themeInitScript)();
+    vi.unstubAllGlobals();
+    return document.documentElement.hasAttribute("data-intro");
+  }
+
+  it("marca a 1ª visita e não marca de novo", () => {
+    expect(run(false)).toBe(true);
+    document.documentElement.removeAttribute("data-intro");
+    expect(run(false)).toBe(false);
+  });
+
+  it("nunca aparece com movimento reduzido", () => {
+    expect(run(true)).toBe(false);
+  });
+});

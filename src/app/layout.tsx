@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import { SiteNav } from "@/components/layout/SiteNav";
 import { SkipLink } from "@/components/layout/SkipLink";
+import { IntroLoader } from "@/components/loader/IntroLoader";
 import { site } from "@/content/site";
 import { themeInitScript } from "@/lib/theme";
 
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body>
+        <IntroLoader />
         <SkipLink />
         <SiteNav />
         {children}

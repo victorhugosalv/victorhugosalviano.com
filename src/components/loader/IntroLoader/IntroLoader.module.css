@@ -1,0 +1,144 @@
+/*
+ * Linha do tempo (2,7 s):
+ * 0–1,0 s borrachão (rodas giram, carro treme) · 1,0–1,6 s arranca até 80% · 1,6–1,9 s freia
+ * 1,9–2,1 s vai a 100% · 2,1 s faróis abrem · 2,45–2,7 s a tela some.
+ * Tudo em CSS: sem JavaScript a abertura também termina sozinha.
+ */
+.overlay {
+  display: none;
+}
+
+:global(:root[data-intro]) .overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  background: var(--color-bg);
+  animation: fade-out 2.7s linear forwards;
+}
+
+.track {
+  --car-w: 196px;
+  --track-w: min(520px, 100vw - 48px);
+  --travel: calc(var(--track-w) - var(--car-w));
+  position: relative;
+  width: var(--track-w);
+  height: calc(var(--car-w) * 30 / 98 + 8px);
+}
+
+.car {
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  width: var(--car-w);
+  aspect-ratio: 98 / 30;
+  animation:
+    drive 2.7s linear forwards,
+    burnout 0.1s steps(1) 10;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+/* Rodas: o quadro B pisca sobre o A até 2,3 s; depois os dois somem e fica o dos faróis. */
+.wheels {
+  position: absolute;
+  inset: 0;
+  animation: hide-at-end 2.7s steps(1) forwards;
+}
+
+.spin {
+  animation: spin 0.12s steps(1) 17;
+}
+
+.lights {
+  opacity: 0;
+  animation: show-at-end 2.7s steps(1) forwards;
+}
+
+.road {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--color-line);
+}
+
+@keyframes drive {
+  0%,
+  37% {
+    translate: 0 0;
+    animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.6);
+  }
+  59% {
+    translate: calc(var(--travel) * 0.8) 0;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1);
+  }
+  70% {
+    translate: calc(var(--travel) * 0.82) 0;
+    animation-timing-function: ease-in-out;
+  }
+  78%,
+  100% {
+    translate: var(--travel) 0;
+  }
+}
+
+@keyframes burnout {
+  50% {
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes spin {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes hide-at-end {
+  0% {
+    opacity: 1;
+  }
+  78%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes show-at-end {
+  0% {
+    opacity: 0;
+  }
+  78%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0%,
+  91% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media (min-width: 1024px) {
+  .track {
+    --car-w: 294px;
+  }
+}

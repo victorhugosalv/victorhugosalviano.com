@@ -19,6 +19,9 @@ export default defineConfig([
       "no-console": ["error", { allow: ["warn", "error"] }],
       "react/jsx-no-useless-fragment": "error",
       "react/no-danger": "error",
+      // Exportação estática: o next/image não otimiza nada aqui (images.unoptimized).
+      // As imagens já saem otimizadas do scripts/optimize-images.ts, em <picture>.
+      "@next/next/no-img-element": "off",
     },
   },
   {

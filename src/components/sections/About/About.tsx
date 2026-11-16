@@ -1,6 +1,7 @@
 import { about } from "@/content/about";
 
 import styles from "./About.module.css";
+import { NsxCruise } from "./NsxCruise";
 
 /** Sobre: texto alinhado ao PDF e, ao lado (desktop), o cartão "Fora do código". */
 export function About() {
@@ -12,6 +13,9 @@ export function About() {
         ))}
       </div>
       <aside className={styles.aside}>
+        <div className={styles.car}>
+          <NsxCruise />
+        </div>
         <p className={styles.note}>{about.outsideCode}</p>
       </aside>
     </div>
