@@ -1,0 +1,150 @@
+/*
+ * Tokens do design (Figma, página 04 "Componentes e tokens").
+ * Os nomes das cores são os do "code syntax" das variáveis do Figma.
+ * Tema escuro (carbono) é o padrão; o claro (Championship White) vale com
+ * data-theme="light" ou, sem JavaScript, pela preferência do sistema.
+ * As duas cópias do tema claro são conferidas por tests/unit/tokens.test.ts.
+ */
+
+:root {
+  /* Espaço */
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-80: 80px;
+  --space-120: 120px;
+
+  /* Raio */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-full: 999px;
+
+  /* Fontes (as variáveis --font-* vêm do next/font, em src/app/fonts.ts) */
+  --font-display: var(--font-tektur), "Arial Narrow", sans-serif;
+  --font-body: var(--font-plex), system-ui, sans-serif;
+  --font-pixel: var(--font-silkscreen), ui-monospace, monospace;
+
+  /* Estilos de texto do Figma (celular; o desktop troca alguns abaixo) */
+  --text-logo: 600 17px / 1 var(--font-display);
+  --text-name: 600 30px / 1 var(--font-display);
+  --text-name-tracking: 0;
+  --text-lead: 500 18px / 1.5 var(--font-body);
+  --text-section-title: 600 26px / 1.1 var(--font-display);
+  --text-card-title: 600 21px / 1.2 var(--font-display);
+  --text-menu-item: 600 22px / 1.2 var(--font-display);
+  --text-small-title: 600 16px / 1.25 var(--font-display);
+  --text-body: 400 15px / 1.6 var(--font-body);
+  --text-card: 400 14px / 1.5 var(--font-body);
+  --text-note: 400 13px / 1.5 var(--font-body);
+  --text-item: 500 15px / 1.35 var(--font-body);
+  --text-button: 500 14px / 1 var(--font-body);
+  --text-chip: 500 13px / 1 var(--font-body);
+  --text-group: 500 13px / 1.3 var(--font-body);
+  --text-skill: 500 12px / 1 var(--font-body);
+  --text-pixel: 400 10px / 1.2 var(--font-pixel);
+  --text-pixel-tracking: 0.04em;
+  --text-pixel-large: 400 12px / 1.2 var(--font-pixel);
+
+  /* Medidas de layout */
+  --page-gutter: var(--space-24);
+  --page-max: 1200px;
+  --touch-min: 44px;
+  --floating-size: 48px;
+  --focus-ring: 2px solid var(--color-red-text);
+
+  /* Movimento */
+  --duration-fast: 150ms;
+  --duration-medium: 280ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Cores: tema escuro (carbono) */
+  color-scheme: dark;
+  --color-bg: #0e0e10;
+  --color-bg-glass: rgb(14 14 16 / 0.72);
+  --color-surface: #17171a;
+  --color-surface-2: #202024;
+  --color-line: #2e2e33;
+  --color-text: #ededed;
+  --color-text-muted: #a0a0a6;
+  --color-red: #e0243a;
+  --color-red-text: #f5475b;
+  --color-gold: #c9a44c;
+  --color-on-red: #ffffff;
+  --color-icon-sun: #fbbf24;
+  --color-icon-moon: #22d3ee;
+  --color-chat: #25d366;
+  --photo-fade: 1;
+  --shadow-float: 0 6px 10px rgb(0 0 0 / 0.22);
+  --shadow-menu: 0 12px 16px rgb(0 0 0 / 0.3);
+  --color-scrim: rgb(0 0 0 / 0.6);
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --page-gutter: var(--space-120);
+    --text-name: 600 72px / 0.96 var(--font-display);
+    --text-name-tracking: -1px;
+    --text-lead: 500 21px / 1.5 var(--font-body);
+    --text-section-title: 600 40px / 1.1 var(--font-display);
+    --text-card-title: 600 26px / 1.2 var(--font-display);
+    --text-body: 400 17px / 1.65 var(--font-body);
+  }
+}
+
+/* Cores: tema claro (Championship White), escolhido no botão de tema */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-bg: #f3efe6;
+  --color-bg-glass: rgb(243 239 230 / 0.78);
+  --color-surface: #fbf9f4;
+  --color-surface-2: #e9e2d4;
+  --color-line: #d8cfbf;
+  --color-text: #161514;
+  --color-text-muted: #5f5a52;
+  --color-red: #c8102e;
+  --color-red-text: #c8102e;
+  --color-gold: #7d6019;
+  --color-on-red: #ffffff;
+  --color-icon-sun: #b45309;
+  --color-icon-moon: #0e7490;
+  --color-chat: #128c7e;
+  --photo-fade: 0.8;
+  --shadow-float: 0 6px 10px rgb(22 21 20 / 0.12);
+  --shadow-menu: 0 12px 16px rgb(22 21 20 / 0.16);
+  --color-scrim: rgb(22 21 20 / 0.35);
+}
+
+/* Sem JavaScript: segue o sistema. Mesmos valores do bloco acima. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --color-bg: #f3efe6;
+    --color-bg-glass: rgb(243 239 230 / 0.78);
+    --color-surface: #fbf9f4;
+    --color-surface-2: #e9e2d4;
+    --color-line: #d8cfbf;
+    --color-text: #161514;
+    --color-text-muted: #5f5a52;
+    --color-red: #c8102e;
+    --color-red-text: #c8102e;
+    --color-gold: #7d6019;
+    --color-on-red: #ffffff;
+    --color-icon-sun: #b45309;
+    --color-icon-moon: #0e7490;
+    --color-chat: #128c7e;
+    --photo-fade: 0.8;
+    --shadow-float: 0 6px 10px rgb(22 21 20 / 0.12);
+    --shadow-menu: 0 12px 16px rgb(22 21 20 / 0.16);
+    --color-scrim: rgb(22 21 20 / 0.35);
+  }
+}

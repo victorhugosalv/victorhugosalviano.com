@@ -1,0 +1,9 @@
+.next
+out
+node_modules
+test-results
+playwright-report
+.lighthouseci
+public/curriculo
+package-lock.json
+src/styles/brand-colors.css

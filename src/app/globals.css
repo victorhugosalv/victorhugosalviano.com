@@ -1,0 +1,39 @@
+@import "../styles/reset.css";
+@import "../styles/tokens.css";
+
+html {
+  background: var(--color-bg);
+  color: var(--color-text);
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--space-80);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: var(--text-body);
+}
+
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--color-red);
+  color: var(--color-on-red);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+  }
+}
