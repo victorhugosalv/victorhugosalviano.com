@@ -23,13 +23,13 @@ test.describe("página da Rinha", () => {
       if (isMobile) {
         await page.getByRole("button", { name: "Abrir menu" }).click();
         const nav = page.getByRole("navigation", { name: "Navegação principal" }).last();
-        await expect(nav.getByRole("link", { name: "Projetos" })).toHaveAttribute(
+        await expect(nav.getByRole("link", { name: "Projetos", exact: true })).toHaveAttribute(
           "aria-current",
           "true",
         );
       } else {
         const nav = page.getByRole("navigation", { name: "Navegação principal" }).first();
-        await expect(nav.getByRole("link", { name: "Projetos" })).toHaveAttribute(
+        await expect(nav.getByRole("link", { name: "Projetos", exact: true })).toHaveAttribute(
           "aria-current",
           "true",
         );

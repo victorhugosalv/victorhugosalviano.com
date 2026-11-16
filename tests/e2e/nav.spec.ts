@@ -184,6 +184,58 @@ test.describe("navegação no celular", () => {
     await expect(page).toHaveURL(/#sobre$/);
   });
 
+  test("Projetos: a seta abre a lista pelo teclado e o foco continua preso no menu", async ({
+    page,
+  }) => {
+    await gotoWithTheme(page, "/", "dark");
+    const toggle = menuButton(page);
+    await toggle.focus();
+    await page.keyboard.press("Enter");
+    const panel = page.locator(`[id="${await toggle.getAttribute("aria-controls")}"]`);
+    const arrow = panel.getByRole("button", { name: "Mostrar projetos" });
+    // Início → Skills → Projetos → seta
+    for (let i = 0; i < 3; i++) await page.keyboard.press("Tab");
+    await expect(arrow).toBeFocused();
+    await expect(arrow).toHaveAttribute("aria-expanded", "false");
+    await page.keyboard.press("Enter");
+    const hide = panel.getByRole("button", { name: "Esconder projetos" });
+    await expect(hide).toHaveAttribute("aria-expanded", "true");
+    const sublist = page.locator(`[id="${await hide.getAttribute("aria-controls")}"]`);
+    await expect(sublist.getByRole("link")).toHaveCount(4);
+    await expect(sublist.getByRole("link").last()).toHaveAccessibleName(/Ver todos os projetos/);
+    await page.keyboard.press("Tab");
+    await expect(sublist.getByRole("link").first()).toBeFocused();
+    for (let i = 0; i < 12; i++) {
+      await page.keyboard.press("Tab");
+      const inside = await page.evaluate(
+        (id) =>
+          !!document.getElementById(id ?? "")?.contains(document.activeElement) ||
+          document.activeElement?.getAttribute("aria-controls") === id,
+        await toggle.getAttribute("aria-controls"),
+      );
+      expect(inside).toBe(true);
+    }
+    await page.keyboard.press("Escape");
+    await expect(panel).toBeHidden();
+    await expect(toggle).toBeFocused();
+  });
+
+  test("na página de um projeto, a lista já abre com o projeto atual marcado", async ({ page }) => {
+    await gotoWithTheme(page, "/projetos/rinha-do-campus-iv/", "dark");
+    await menuButton(page).click();
+    const hide = page.getByRole("button", { name: "Esconder projetos" });
+    await expect(hide).toHaveAttribute("aria-expanded", "true");
+    const sublist = page.locator(`[id="${await hide.getAttribute("aria-controls")}"]`);
+    await expect(sublist.getByRole("link", { name: "Rinha do Campus IV" })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+    await expect(page.getByRole("link", { name: "Projetos", exact: true })).toHaveAttribute(
+      "aria-current",
+      "true",
+    );
+  });
+
   test("toque fora fecha o menu", async ({ page }) => {
     await gotoWithTheme(page, "/", "dark");
     await menuButton(page).click();

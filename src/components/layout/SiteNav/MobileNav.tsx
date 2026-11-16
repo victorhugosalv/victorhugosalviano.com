@@ -14,13 +14,21 @@ import { ThemeToggleRow } from "../ThemeToggle";
 
 import styles from "./MobileNav.module.css";
 import { mobileLinks } from "./navLinks";
+import { ProjectsMenuItem } from "./ProjectsMenuItem";
+
+interface MobileNavProps {
+  active: string | null;
+  hasHero: boolean;
+  currentProject: string | undefined;
+  onProjectsIndex: boolean;
+}
 
 /**
  * Celular e tablet (< 1024 px): Menu fixo no canto de cima à direita; Início no canto de
  * baixo à direita, escondido enquanto o hero está na tela (nas páginas sem hero, sempre à
  * vista). O menu desce do topo, prende o foco e fecha com Esc ou com um toque fora.
  */
-export function MobileNav({ active, hasHero }: { active: string | null; hasHero: boolean }) {
+export function MobileNav({ active, hasHero, currentProject, onProjectsIndex }: MobileNavProps) {
   const pastHero = useScrolledPast(anchors.heroEnd);
   const showHome = !hasHero || pastHero;
   const { isOpen, close, toggle, panelId } = useDisclosure();
@@ -81,15 +89,25 @@ export function MobileNav({ active, hasHero }: { active: string | null; hasHero:
           <ul className={styles.list}>
             {mobileLinks.map((link, index) => (
               <li key={link.id}>
-                <a
-                  ref={index === 0 ? firstLinkRef : undefined}
-                  href={link.href}
-                  onClick={close}
-                  aria-current={current === link.id ? "true" : undefined}
-                  className={styles.link}
-                >
-                  {link.title}
-                </a>
+                {link.id === anchors.projects ? (
+                  <ProjectsMenuItem
+                    link={link}
+                    current={current === link.id}
+                    currentProject={currentProject}
+                    onProjectsIndex={onProjectsIndex}
+                    onNavigate={close}
+                  />
+                ) : (
+                  <a
+                    ref={index === 0 ? firstLinkRef : undefined}
+                    href={link.href}
+                    onClick={close}
+                    aria-current={current === link.id ? "true" : undefined}
+                    className={styles.link}
+                  >
+                    {link.title}
+                  </a>
+                )}
               </li>
             ))}
           </ul>

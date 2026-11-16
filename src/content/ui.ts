@@ -11,6 +11,9 @@ export const ui = {
     openMenu: "Abrir menu",
     closeMenu: "Fechar menu",
     contactButton: "Ir para os contatos",
+    showProjects: "Mostrar projetos",
+    hideProjects: "Esconder projetos",
+    allProjects: "Ver todos os projetos",
   },
   theme: {
     toLight: "Modo claro",
