@@ -1,6 +1,6 @@
 /**
- * Texto do Sobre aprovado pelo Victor em 16/11/2026 (PLANO-AJUSTES-2, C4). Sem detalhes
- * técnicos (Dockerfile, testes e ADRs ficam no currículo e nas páginas de projeto) e sem cidade.
+ * Texto do Sobre. Sem detalhes técnicos (Dockerfile, testes e ADRs ficam no currículo e nas
+ * páginas de projeto) e sem cidade.
  */
 export const about = {
   paragraphs: [

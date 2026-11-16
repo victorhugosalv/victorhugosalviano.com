@@ -2,7 +2,7 @@ import type { Link, ResponsiveImage } from "./types";
 
 const email = "contato@victorhugosalviano.com";
 
-/** Fatos do currículo (curriculo-pdf/curriculo.md). */
+/** Fatos do currículo (public/curriculo/). */
 export const profile = {
   name: "Victor Hugo Salviano",
   /** o nome em duas linhas, como no Figma */

@@ -1,5 +1,5 @@
-// Copia o currículo (PDF e Markdown) do módulo curriculo-pdf para public/curriculo/.
-// Roda só no computador do Victor, quando o currículo muda. Com --check, só compara.
+// Copia o currículo (PDF e Markdown) da pasta de origem para public/curriculo/.
+// Roda localmente, quando o currículo muda. Com --check, só compara.
 // Uso: npx tsx scripts/sync-curriculo.ts [--src ../../curriculo-pdf] [--check]
 import { copyFileSync, existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";

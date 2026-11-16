@@ -1,6 +1,6 @@
 import type { ProjectStatus } from "./types";
 
-/** Textos da página /projetos/ (aprovados pelo Victor em 16/11/2026, v6.1). */
+/** Textos da página /projetos/. */
 export const projectsIndexTexts = {
   title: "Projetos",
   lead: "Projetos da faculdade, em equipe e de estudo. Busque pelo nome ou filtre por status e tecnologia.",

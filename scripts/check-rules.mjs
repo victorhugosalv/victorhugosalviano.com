@@ -1,4 +1,4 @@
-// Confere as regras do ESTRUTURA.md §3 que o lint não cobre.
+// Confere as regras de arquitetura do README que o lint não cobre.
 // Sai com código 1 e lista as violações, se houver.
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
@@ -90,8 +90,8 @@ for (const { path, text } of files) {
 
 if (problems.length) {
   console.error(
-    `Regras do ESTRUTURA.md §3: ${problems.length} problema(s)\n- ${problems.join("\n- ")}`,
+    `Regras de arquitetura: ${problems.length} problema(s)\n- ${problems.join("\n- ")}`,
   );
   process.exit(1);
 }
-console.log(`Regras do ESTRUTURA.md §3: ok (${files.length} arquivos)`);
+console.log(`Regras de arquitetura: ok (${files.length} arquivos)`);

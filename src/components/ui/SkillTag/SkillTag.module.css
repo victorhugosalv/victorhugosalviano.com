@@ -19,7 +19,7 @@
   background: color-mix(in srgb, var(--brand, var(--color-text)) 16%, transparent);
 }
 
-/* Logos só no desktop (Figma v4). */
+/* Logos só no desktop. */
 .logo {
   display: none;
 }
