@@ -52,11 +52,11 @@ test.describe("página da Rinha", () => {
     await expect(page.locator("time[datetime='2026-04']").first()).toBeVisible();
   });
 
-  test("voltar leva aos projetos no início", async ({ page }) => {
+  test("voltar leva à página com todos os projetos", async ({ page }) => {
     await gotoWithTheme(page, RINHA, "dark");
     await page.getByRole("link", { name: "Todos os projetos" }).click();
-    await expect(page).toHaveURL(/\/#projetos$/);
-    await expect(page.locator("#projetos")).toBeInViewport();
+    await expect(page).toHaveURL(/\/projetos\/$/);
+    await expect(page.getByRole("heading", { level: 1, name: "Projetos" })).toBeVisible();
   });
 
   test("'Ver mais' no início abre a página", async ({ page }) => {

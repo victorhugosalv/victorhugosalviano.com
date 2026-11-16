@@ -1,4 +1,5 @@
 import {
+  IconAdjustmentsHorizontal,
   IconArrowLeft,
   IconArrowUpRight,
   IconBrandGithub,
@@ -18,6 +19,7 @@ import {
   IconMenu2,
   IconMessage,
   IconMoon,
+  IconSearch,
   IconSun,
   IconX,
 } from "@tabler/icons-react";
@@ -25,6 +27,7 @@ import {
 import styles from "./Icon.module.css";
 
 const icons = {
+  adjustments: IconAdjustmentsHorizontal,
   "arrow-left": IconArrowLeft,
   "arrow-up-right": IconArrowUpRight,
   check: IconCheck,
@@ -44,6 +47,7 @@ const icons = {
   menu: IconMenu2,
   message: IconMessage,
   moon: IconMoon,
+  search: IconSearch,
   sun: IconSun,
   x: IconX,
 } as const;

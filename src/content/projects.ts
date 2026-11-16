@@ -7,6 +7,7 @@ import type { Project } from "./types";
 export const projects = [
   {
     slug: "rinha-do-campus-iv",
+    status: "concluido",
     title: "Rinha do Campus IV",
     summary:
       "Plataforma de torneios de e-sports do Campus IV (League of Legends, Counter-Strike 2 e Valorant): inscrição de equipes, pagamento pelo Mercado Pago e painel de administração.",
@@ -94,6 +95,7 @@ export const projects = [
   },
   {
     slug: "docenda",
+    status: "em-desenvolvimento",
     title: "Docenda",
     summary: "Plataforma web para criar e avaliar planos de aula de Computação com IA.",
     period: { start: { label: "nov/2026", iso: "2026-11" }, end: { label: "atual" } },
@@ -106,6 +108,7 @@ export const projects = [
   },
   {
     slug: "bichedin",
+    status: "em-desenvolvimento",
     title: "BichedIn",
     summary:
       "Currículos gamificados de bichos de estimação: galeria com filtros, criação com prévia ao vivo e XP ganho com petiscos. Projeto de estudo de front-end sem framework, feito a partir de um design próprio no Figma.",

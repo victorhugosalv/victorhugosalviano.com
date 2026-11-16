@@ -58,8 +58,12 @@ export interface Period {
   readonly end?: DateLabel;
 }
 
+/** Situação do projeto (filtro de /projetos/). */
+export type ProjectStatus = "em-desenvolvimento" | "concluido";
+
 export interface Project {
   readonly slug: string;
+  readonly status: ProjectStatus;
   readonly title: string;
   readonly summary: string;
   readonly period: Period;

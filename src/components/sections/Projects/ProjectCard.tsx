@@ -12,11 +12,14 @@ interface ProjectCardProps {
   project: Project;
   /** destaque: no desktop, imagem à esquerda e texto à direita */
   featured?: boolean;
+  /** h3 dentro da seção Projetos do início; h2 na página /projetos/ */
+  headingLevel?: 2 | 3;
 }
 
 /** Cartão de projeto. O cartão não é link: os links são os repositórios e "Ver mais". */
-export function ProjectCard({ project, featured = false }: ProjectCardProps) {
+export function ProjectCard({ project, featured = false, headingLevel = 3 }: ProjectCardProps) {
   const headingId = `${project.slug}-titulo`;
+  const Heading = headingLevel === 2 ? "h2" : "h3";
   return (
     <article
       id={project.slug}
@@ -41,9 +44,9 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
       </div>
       <div className={styles.body}>
         <div className={styles.heading}>
-          <h3 id={headingId} className={styles.title}>
+          <Heading id={headingId} className={styles.title}>
             {project.title}
-          </h3>
+          </Heading>
           <Period {...project.period} after={project.tags} />
         </div>
         <p className={styles.summary}>{project.summary}</p>

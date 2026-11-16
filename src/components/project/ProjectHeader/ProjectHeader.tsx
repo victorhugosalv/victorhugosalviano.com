@@ -2,8 +2,8 @@ import { Icon } from "@/components/ui/Icon";
 import { Period } from "@/components/ui/Period";
 import { Picture } from "@/components/ui/Picture";
 import { projectTexts } from "@/content/projects";
-import { anchors } from "@/content/sections";
 import type { Project, ProjectPage } from "@/content/types";
+import { PROJECTS_INDEX_PATH } from "@/lib/projects";
 
 import styles from "./ProjectHeader.module.css";
 
@@ -11,7 +11,7 @@ import styles from "./ProjectHeader.module.css";
 export function ProjectHeader({ project, page }: { project: Project; page: ProjectPage }) {
   return (
     <header className={styles.header}>
-      <a href={`/#${anchors.projects}`} className={styles.back}>
+      <a href={PROJECTS_INDEX_PATH} className={styles.back}>
         <Icon name="arrow-left" />
         {projectTexts.backToProjects}
       </a>

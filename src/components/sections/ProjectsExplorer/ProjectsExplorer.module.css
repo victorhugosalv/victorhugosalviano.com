@@ -1,0 +1,318 @@
+/*
+ * Uma grade só, para a ordem do HTML (busca → status → filtros → painel → contagem →
+ * aplicados → resultados) valer no teclado e no leitor de tela em qualquer largura.
+ * Celular: tudo empilhado, com Filtros e a contagem na mesma linha.
+ * Desktop: busca, Status e Filtros numa linha, alinhados pela base.
+ */
+.explorer {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "search search"
+    "status status"
+    "filters count"
+    "panel panel"
+    "applied applied"
+    "results results";
+  align-items: end;
+  gap: var(--space-16);
+}
+
+@media (min-width: 1024px) {
+  .explorer {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    /* contagem e filtros aplicados dividem a mesma faixa ("bar"), sem alargar as colunas */
+    grid-template-areas:
+      "search status filters"
+      "panel panel panel"
+      "bar bar bar"
+      "results results results";
+    column-gap: var(--space-16);
+    row-gap: var(--space-24);
+  }
+}
+
+/* Sem JavaScript (o script do tema não roda e não há data-theme), os controles não
+   funcionariam: somem, e a lista aparece inteira. */
+:global(:root:not([data-theme])) .control {
+  display: none;
+}
+
+.search {
+  grid-area: search;
+}
+
+.status {
+  grid-area: status;
+  min-width: 0;
+}
+
+.filters {
+  grid-area: filters;
+}
+
+.panel {
+  grid-area: panel;
+}
+
+.count {
+  grid-area: count;
+  align-self: center;
+  justify-self: end;
+  color: var(--color-text);
+  font: var(--text-item);
+}
+
+.applied {
+  grid-area: applied;
+  align-self: center;
+}
+
+.results {
+  grid-area: results;
+  margin-top: var(--space-8);
+}
+
+@media (min-width: 1024px) {
+  .count {
+    grid-area: bar;
+    justify-self: start;
+  }
+
+  .applied {
+    grid-area: bar;
+    justify-self: end;
+  }
+}
+
+.label {
+  display: block;
+  margin-bottom: var(--space-8);
+  color: var(--color-text);
+  font: var(--text-item);
+}
+
+/* Campo de busca: 44 px, ícone dentro. */
+.field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  height: var(--touch-min);
+  padding: 0 var(--space-12);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+}
+
+.field:focus-within {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  font: var(--text-body);
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 1;
+}
+
+/* Status: rádios desenhados como controle segmentado. */
+.segmented {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.segment {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 var(--space-12);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font: var(--text-button);
+  cursor: pointer;
+}
+
+.segment:has(:checked) {
+  background: var(--color-red);
+  color: var(--color-on-red);
+}
+
+.segment:has(:focus-visible) {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Botão Filtros: mesma altura e moldura da busca, com borda forte quando aberto. */
+.filters {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  height: var(--touch-min);
+  padding: 0 var(--space-12) 0 var(--space-16);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: var(--text-button);
+}
+
+.filters:hover,
+.filters[aria-expanded="true"] {
+  border-color: var(--color-text);
+}
+
+.badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-full);
+  background: var(--color-red);
+  color: var(--color-on-red);
+  font: var(--text-chip);
+}
+
+/* Painel das tecnologias. */
+.panel {
+  padding: var(--space-20);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.hint {
+  margin: calc(-1 * var(--space-4)) 0 var(--space-12);
+  color: var(--color-text-muted);
+  font: var(--text-note);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  min-height: var(--touch-min);
+  padding: 0 var(--space-16);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  color: var(--color-text);
+  font: var(--text-button);
+  cursor: pointer;
+}
+
+.chip:hover {
+  border-color: var(--color-text-muted);
+}
+
+/* Marcada: fundo vermelho e um ✓ (não depende só da cor). */
+.chip:has(:checked) {
+  border-color: transparent;
+  background: var(--color-red);
+  color: var(--color-on-red);
+}
+
+.chip:has(:focus-visible) {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.check {
+  display: none;
+}
+
+.chip:has(:checked) .check {
+  display: inline-flex;
+}
+
+/* Resumo do que está ativo. */
+.applied {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.appliedChip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  min-height: var(--touch-min);
+  padding: 0 var(--space-12);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  color: var(--color-text);
+  font: var(--text-chip);
+}
+
+.appliedChip:hover {
+  border-color: var(--color-text-muted);
+}
+
+.clear {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-4);
+  color: var(--color-red-text);
+  font: var(--text-button);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Nenhum resultado. */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-16);
+  padding: var(--space-48) var(--space-24);
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  text-align: center;
+}
+
+.emptyText {
+  color: var(--color-text);
+  font: var(--text-page-lead);
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* No iPhone, campos com letra menor que 16 px dão zoom ao tocar. */
+@media (max-width: 1023px) {
+  .input {
+    font-size: 16px;
+  }
+}

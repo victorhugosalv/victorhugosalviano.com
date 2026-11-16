@@ -1,12 +1,22 @@
+import { ActionLink } from "@/components/ui/ActionLink";
 import { Grid, Stack } from "@/components/ui/Layout";
 import { projects } from "@/content/projects";
+import { ui } from "@/content/ui";
+import { PROJECTS_INDEX_PATH, selectHomeProjects } from "@/lib/projects";
 
 import { ProjectCard } from "./ProjectCard";
 
-/** Projetos: o destaque ocupa a largura toda; os outros em duas colunas no desktop. */
+/** Quantos projetos o início mostra: o destaque e mais dois. */
+const HOME_PROJECTS = 3;
+
+/**
+ * Projetos do início: o destaque ocupa a largura toda e os outros ficam em duas colunas no
+ * desktop. Embaixo, sempre, o link para a página com todos (busca e filtros).
+ */
 export function Projects() {
-  const featured = projects.filter((p) => "featured" in p && p.featured);
-  const others = projects.filter((p) => !("featured" in p && p.featured));
+  const shown = selectHomeProjects(projects, HOME_PROJECTS);
+  const featured = shown.filter((p) => "featured" in p && p.featured);
+  const others = shown.filter((p) => !("featured" in p && p.featured));
   return (
     <Stack gap={{ base: 20, desktop: 40 }}>
       {featured.map((project) => (
@@ -17,6 +27,9 @@ export function Projects() {
           <ProjectCard key={project.slug} project={project} />
         ))}
       </Grid>
+      <div>
+        <ActionLink label={ui.nav.allProjects} href={PROJECTS_INDEX_PATH} />
+      </div>
     </Stack>
   );
 }
