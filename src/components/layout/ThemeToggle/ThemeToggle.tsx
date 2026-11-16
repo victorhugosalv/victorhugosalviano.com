@@ -7,15 +7,16 @@ import { useTheme } from "@/hooks/useTheme";
 import { ThemeIcon } from "./ThemeIcon";
 import styles from "./ThemeToggle.module.css";
 
-/** Botão redondo do tema (desktop, canto superior direito). */
+/** Botão redondo do tema (desktop, canto superior direito, na coluna do contato). */
 export function ThemeToggleFloating() {
   const { theme, toggleTheme } = useTheme();
   return (
     <FloatingButton
       label={theme === "dark" ? ui.theme.toLightLabel : ui.theme.toDarkLabel}
       onClick={toggleTheme}
+      size="large"
     >
-      <ThemeIcon />
+      <ThemeIcon size={24} />
     </FloatingButton>
   );
 }

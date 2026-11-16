@@ -26,8 +26,8 @@ function PillLink({ link, active }: { link: NavLink; active: boolean }) {
 }
 
 /**
- * Desktop (≥ 1024 px): pílula centralizada e tema no canto de cima, alinhados ao conteúdo.
- * O contato é um atalho de ação: fica preso ao canto da janela, maior e em vermelho.
+ * Desktop (≥ 1024 px): pílula centralizada; tema (em cima) e contato (embaixo) na mesma
+ * coluna, presos à borda direita da janela. O contato é um atalho de ação, em vermelho.
  */
 export function DesktopNav({ active, hasHero }: { active: string | null; hasHero: boolean }) {
   const pastHero = useScrolledPast(anchors.heroEnd);

@@ -16,10 +16,13 @@
   border-color: var(--color-text-muted);
 }
 
-/* Atalho de ação (contato): maior, vermelho e com sombra. */
-.accent {
+.large {
   width: var(--floating-accent-size);
   height: var(--floating-accent-size);
+}
+
+/* Atalho de ação (contato): vermelho e com sombra. */
+.accent {
   border-color: transparent;
   background: var(--color-red);
   backdrop-filter: none;

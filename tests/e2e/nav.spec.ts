@@ -61,6 +61,20 @@ test.describe("navegação no desktop", () => {
     expect(Math.round(viewport.height - (b.y + b.height))).toBe(32);
   });
 
+  test("tema e contato na mesma coluna, presos à borda direita da janela", async ({ page }) => {
+    await gotoWithTheme(page, "/projetos/rinha-do-campus-iv/", "dark");
+    const theme = page.getByRole("button", { name: "Mudar para o modo claro" });
+    const contact = page.getByRole("link", { name: "Ir para os contatos" });
+    const viewport = page.viewportSize();
+    const t = await theme.boundingBox();
+    const c = await contact.boundingBox();
+    if (!viewport || !t || !c) throw new Error("sem medidas");
+    expect(Math.round(t.width)).toBe(Math.round(c.width));
+    expect(Math.round(viewport.width - (t.x + t.width))).toBe(32);
+    expect(Math.round(t.x)).toBe(Math.round(c.x));
+    expect(t.y).toBeLessThan(c.y);
+  });
+
   test("Contato aparece depois do hero e some na seção Contatos", async ({ page }) => {
     await gotoWithTheme(page, "/", "dark");
     const contact = page.getByRole("link", { name: "Ir para os contatos" });

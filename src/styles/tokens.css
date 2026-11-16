@@ -117,7 +117,9 @@
   :root {
     --nav-top: var(--space-20);
     /* a pílula tem 48 px de links mais 1 px de borda em cima e embaixo */
-    --nav-height: calc(var(--floating-size) + 2px);
+    --nav-pill-height: calc(var(--floating-size) + 2px);
+    /* o tema (56 px) fica centralizado na pílula e passa um pouco dela embaixo */
+    --nav-height: calc((var(--nav-pill-height) + var(--floating-accent-size)) / 2);
     --page-gutter: var(--space-120);
     --text-name: 600 72px / 0.96 var(--font-display);
     --text-name-tracking: -1px;

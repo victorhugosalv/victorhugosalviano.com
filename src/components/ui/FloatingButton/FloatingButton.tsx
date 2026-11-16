@@ -5,6 +5,8 @@ import styles from "./FloatingButton.module.css";
 interface FloatingButtonProps {
   /** glass: vidro de 48 px (navegação). accent: 56 px em vermelho (atalho de ação). */
   variant?: "glass" | "accent";
+  /** regular: 48 px. large: 56 px (padrão do accent; no vidro, para alinhar com o accent). */
+  size?: "regular" | "large";
   /** Nome acessível (o botão só tem ícone). */
   label: string;
   /** O ícone (decorativo). */
@@ -20,6 +22,7 @@ interface FloatingButtonProps {
 /** Botão redondo da navegação flutuante: de vidro (48 px) ou de destaque (56 px). */
 export function FloatingButton({
   variant = "glass",
+  size = variant === "accent" ? "large" : "regular",
   label,
   children,
   href,
@@ -28,14 +31,10 @@ export function FloatingButton({
   controls,
   ref,
 }: FloatingButtonProps) {
+  const className = `${styles.button} ${styles[variant]} ${styles[size]}`;
   if (href !== undefined) {
     return (
-      <a
-        href={href}
-        aria-label={label}
-        onClick={onClick}
-        className={`${styles.button} ${styles[variant]}`}
-      >
+      <a href={href} aria-label={label} onClick={onClick} className={className}>
         {children}
       </a>
     );
@@ -48,7 +47,7 @@ export function FloatingButton({
       aria-expanded={expanded}
       aria-controls={controls}
       onClick={onClick}
-      className={`${styles.button} ${styles[variant]}`}
+      className={className}
     >
       {children}
     </button>
