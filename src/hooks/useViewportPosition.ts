@@ -27,12 +27,12 @@ export function useViewportPosition(elementId: string): ViewportPosition | null 
   return position;
 }
 
-/** Faixa do topo ocupada pelos botões flutuantes (16 + 48 + 16 px, com folga). */
+/** Faixa do topo ocupada pela navegação flutuante (16 + 48 + 16 px, com folga). */
 const FLOATING_BAND = 96;
 
 /**
- * true depois que o elemento (ex.: o marcador do fim do hero) subiu além da faixa dos botões
- * flutuantes no topo. A área observada vai dessa faixa até muito abaixo da tela, então até
+ * true depois que o elemento (ex.: o marcador do fim do hero) subiu além da faixa da
+ * navegação no topo: é quando o Início (celular) e o contato (desktop) aparecem. A área observada vai dessa faixa até muito abaixo da tela, então até
  * um salto direto (link do menu) troca o estado: "dentro" = ainda não passou.
  */
 export function useScrolledPast(elementId: string) {

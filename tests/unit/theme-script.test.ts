@@ -25,6 +25,16 @@ describe("script do tema no <head>", () => {
     expect(runScript(false)).toBe("dark");
   });
 
+  it("marca que o JavaScript roda mesmo com o armazenamento bloqueado", () => {
+    document.documentElement.removeAttribute("data-js");
+    const getItem = vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
+      throw new Error("SecurityError");
+    });
+    runScript(false);
+    getItem.mockRestore();
+    expect(document.documentElement.hasAttribute("data-js")).toBe(true);
+  });
+
   it("isTheme aceita só dark e light", () => {
     expect(isTheme("dark")).toBe(true);
     expect(isTheme("light")).toBe(true);

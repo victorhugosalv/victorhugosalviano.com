@@ -32,9 +32,9 @@
   }
 }
 
-/* Sem JavaScript (o script do tema não roda e não há data-theme), os controles não
-   funcionariam: somem, e a lista aparece inteira. */
-:global(:root:not([data-theme])) .control {
+/* Sem JavaScript (sem o data-js do script do <head>), os controles não funcionariam:
+   somem, e a lista aparece inteira. */
+:global(:root:not([data-js])) .control {
   display: none;
 }
 

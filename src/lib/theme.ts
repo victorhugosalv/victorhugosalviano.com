@@ -7,6 +7,12 @@ export const THEME_STORAGE_KEY = STORAGE_KEYS.theme;
 /** Atributo no <html> enquanto a abertura do NSX (1ª visita) está na tela. */
 export const INTRO_ATTRIBUTE = "data-intro";
 
+/**
+ * Atributo no <html> que diz "o JavaScript roda". Fica fora de qualquer try: mesmo com o
+ * armazenamento bloqueado (localStorage dá erro), os controles que dependem de JS aparecem.
+ */
+export const JS_ATTRIBUTE = "data-js";
+
 /** Cor da barra do navegador no celular (<meta name="theme-color">): o fundo de cada tema. */
 export const THEME_COLORS: Record<Theme, string> = { dark: "#0e0e10", light: "#f3efe6" };
 
@@ -16,11 +22,14 @@ export function isTheme(value: unknown): value is Theme {
 
 /**
  * Roda no <head> antes de desenhar a página:
+ * 0. marca que o JavaScript roda (data-js);
  * 1. tema sem "piscar": escolha salva > preferência do sistema > escuro;
  * 2. abertura do NSX só na 1ª visita e nunca com movimento reduzido.
  * O hash deste script entra na CSP (scripts/csp-hashes.ts).
  */
-export const themeInitScript = `(function(){var d=document.documentElement;try{var t=localStorage.getItem(${JSON.stringify(
+export const themeInitScript = `(function(){var d=document.documentElement;d.setAttribute(${JSON.stringify(
+  JS_ATTRIBUTE,
+)},"");try{var t=localStorage.getItem(${JSON.stringify(
   THEME_STORAGE_KEY,
 )});if(t!=="dark"&&t!=="light"){t=window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}d.setAttribute("data-theme",t)}catch(e){}try{if(!localStorage.getItem(${JSON.stringify(
   STORAGE_KEYS.introSeen,

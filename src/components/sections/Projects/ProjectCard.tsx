@@ -5,6 +5,7 @@ import { Period } from "@/components/ui/Period";
 import { Picture } from "@/components/ui/Picture";
 import { projectTexts } from "@/content/projects";
 import type { Project } from "@/content/types";
+import { projectHref } from "@/lib/projects";
 
 import styles from "./ProjectCard.module.css";
 
@@ -73,7 +74,7 @@ export function ProjectCard({ project, featured = false, headingLevel = 3 }: Pro
         {project.page ? (
           <ActionLink
             label={projectTexts.more}
-            href={`/projetos/${project.slug}/`}
+            href={projectHref(project)}
             description={`: ${project.title}`}
           />
         ) : null}

@@ -236,6 +236,16 @@ test.describe("navegação no celular", () => {
     );
   });
 
+  test("na 404, mesmo dentro de /projetos/, nenhuma página fica marcada no menu", async ({
+    page,
+  }) => {
+    await gotoWithTheme(page, "/projetos/qualquer-coisa/", "dark");
+    await menuButton(page).click();
+    const panel = page.locator(`[id="${await menuButton(page).getAttribute("aria-controls")}"]`);
+    await expect(panel.locator("[aria-current]")).toHaveCount(0);
+    await expect(panel.getByRole("button", { name: "Mostrar projetos" })).toBeVisible();
+  });
+
   test("toque fora fecha o menu", async ({ page }) => {
     await gotoWithTheme(page, "/", "dark");
     await menuButton(page).click();

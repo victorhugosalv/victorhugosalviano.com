@@ -61,8 +61,8 @@ export function MobileNav({ active, hasHero, currentProject, onProjectsIndex }: 
     };
   }, [isOpen, close]);
 
-  // A página atual (Início) conta como ativa quando nenhuma seção está na faixa.
-  const current = active ?? anchors.top;
+  // No início, "Início" conta como ativo quando nenhuma seção está na faixa; na 404, nada.
+  const current = active ?? (hasHero ? anchors.top : null);
 
   return (
     <nav aria-label={ui.nav.label} className={styles.mobile} data-open={isOpen}>

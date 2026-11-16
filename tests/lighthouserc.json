@@ -3,7 +3,12 @@
     "collect": {
       "startServerCommand": "node scripts/serve.mjs 4180",
       "startServerReadyPattern": "Servindo",
-      "url": ["http://localhost:4180/", "http://localhost:4180/projetos/rinha-do-campus-iv/"],
+      "url": [
+        "http://localhost:4180/",
+        "http://localhost:4180/projetos/",
+        "http://localhost:4180/projetos/rinha-do-campus-iv/",
+        "http://localhost:4180/projetos/bichedin/"
+      ],
       "numberOfRuns": 3,
       "settings": {
         "chromeFlags": "--headless=new --no-sandbox"
