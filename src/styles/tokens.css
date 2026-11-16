@@ -64,6 +64,11 @@
   --page-max: 1200px;
   --touch-min: 44px;
   --floating-size: 48px;
+  /* Navegação flutuante: distância do topo, altura e o espaço que o 1º conteúdo deixa para ela.
+     Abaixo de 640 px a foto do hero ocupa o topo e o botão fica por cima (sem respiro). */
+  --nav-top: var(--space-16);
+  --nav-height: var(--floating-size);
+  --nav-clearance: 0px;
   --focus-ring: 2px solid var(--color-red-text);
 
   /* Movimento */
@@ -93,6 +98,12 @@
   --color-scrim: rgb(0 0 0 / 0.6);
 }
 
+@media (min-width: 640px) {
+  :root {
+    --nav-clearance: calc(var(--nav-top) + var(--nav-height) + var(--space-32));
+  }
+}
+
 /* Tablet (768–1023 px): layout do celular com o conteúdo centralizado. */
 @media (min-width: 768px) and (max-width: 1023px) {
   :root {
@@ -102,6 +113,9 @@
 
 @media (min-width: 1024px) {
   :root {
+    --nav-top: var(--space-20);
+    /* a pílula tem 48 px de links mais 1 px de borda em cima e embaixo */
+    --nav-height: calc(var(--floating-size) + 2px);
     --page-gutter: var(--space-120);
     --text-name: 600 72px / 0.96 var(--font-display);
     --text-name-tracking: -1px;

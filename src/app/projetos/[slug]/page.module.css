@@ -1,5 +1,11 @@
 .main {
-  padding-top: calc(var(--space-16) + var(--floating-size) + var(--space-16));
+  padding-top: calc(var(--nav-top) + var(--floating-size) + var(--space-16));
+}
+
+@media (min-width: 640px) {
+  .main {
+    padding-top: var(--nav-clearance);
+  }
 }
 
 .page {
@@ -27,10 +33,6 @@
 }
 
 @media (min-width: 1024px) {
-  .main {
-    padding-top: calc(var(--space-20) + var(--floating-size) + var(--space-32));
-  }
-
   .columns {
     grid-template-columns: minmax(0, 1fr) 380px;
     grid-template-areas: "body aside";

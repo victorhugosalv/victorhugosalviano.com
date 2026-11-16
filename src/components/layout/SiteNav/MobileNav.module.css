@@ -1,5 +1,5 @@
 .mobile {
-  --edge: var(--space-16);
+  --edge: var(--nav-top);
   --bottom-shift: calc(100vh - var(--floating-size) - 2 * var(--edge));
 }
 

@@ -17,7 +17,7 @@
 }
 
 .theme {
-  top: var(--space-20);
+  top: var(--nav-top);
 }
 
 .contact {
@@ -34,7 +34,7 @@
 
 .pill {
   position: fixed;
-  top: var(--space-20);
+  top: var(--nav-top);
   left: 50%;
   z-index: 50;
   translate: -50% 0;

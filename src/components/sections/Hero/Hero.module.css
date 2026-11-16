@@ -9,6 +9,13 @@
   padding-top: var(--space-32);
 }
 
+/* A partir de 640 px, nada da navegação cobre o hero. */
+@media (min-width: 640px) {
+  .hero {
+    padding-top: var(--nav-clearance);
+  }
+}
+
 .media {
   grid-area: media;
   position: relative;
@@ -69,7 +76,6 @@
       ". media";
     column-gap: var(--space-80);
     row-gap: var(--space-32);
-    padding-top: var(--space-64);
   }
 
   .media {
