@@ -60,12 +60,23 @@ describe("conteúdo bate com o curriculo.md", () => {
     for (const repo of projects[0].repos) expect(cv).toContain(repo.href.replace("https://", ""));
   });
 
-  it("o Sobre cita só fatos do currículo (aulas no estágio, monitoria de Java, Docenda com LLM)", () => {
+  it("o Sobre cita só fatos do currículo (full stack, linguagens, monitoria de Java, aulas no estágio)", () => {
     const text = about.paragraphs.join(" ");
-    expect(text).toContain("dei aulas no ensino médio");
+    expect(text).toContain("full stack");
+    expect(cv).toContain("experiência full stack");
+    for (const lang of ["Python", "Java", "TypeScript"]) {
+      expect(text).toContain(lang);
+      expect(cv).toMatch(new RegExp(`Linguagens:\\*\\*.*\\b${lang}\\b`));
+    }
+    expect(text).toContain("monitor de Java");
+    expect(cv).toContain("Monitor bolsista de Linguagem de Programação e POO (Java)");
+    expect(text).toContain("dei aulas no estágio");
     expect(cv).toContain("Ministrei aulas no 1º ano do ensino médio");
-    expect(text).toContain("Docenda");
-    expect(cv).toContain("Docenda, plataforma com LLM");
+  });
+
+  it('o Sobre fica sem detalhe técnico, sem cidade e sem "IA no dia a dia"', () => {
+    const text = about.paragraphs.join(" ");
+    expect(text).not.toMatch(/dockerfile|\bADRs?\b|\btestes\b|dia a dia|alagoinha/i);
   });
 });
 
