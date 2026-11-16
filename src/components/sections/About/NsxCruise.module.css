@@ -1,4 +1,7 @@
-/* Medidas do componente "NSX em movimento" (Figma 32:210): 332×112, carro de 280 px. */
+/*
+ * Medidas do componente "NSX em movimento" (Figma 32:210): 332×112, carro de 280 px.
+ * O carro tem 98×28 pixels (80 px de altura); as rodas encostam no topo do asfalto (104 px).
+ */
 .scene {
   position: relative;
   width: 100%;
@@ -8,7 +11,7 @@
 
 .car {
   position: absolute;
-  top: 20px;
+  top: 24px;
   left: calc(50% - 140px);
   width: 280px;
   height: auto;

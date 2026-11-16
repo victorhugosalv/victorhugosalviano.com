@@ -30,10 +30,7 @@ function toSvg(rows: string[]): string {
   const w = rows[0]?.length ?? 0;
   const h = rows.length;
   const body = [...paths]
-    .map(([c, d]) => {
-      const opacity = c === "S" ? ' fill-opacity=".35"' : "";
-      return `<path fill="${art.palette[c]}"${opacity} d="${d.join("")}"/>`;
-    })
+    .map(([c, d]) => `<path fill="${art.palette[c]}" d="${d.join("")}"/>`)
     .join("");
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" shape-rendering="crispEdges">${body}</svg>\n`;
 }

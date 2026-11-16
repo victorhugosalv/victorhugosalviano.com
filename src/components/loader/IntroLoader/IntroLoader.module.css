@@ -24,15 +24,16 @@
   --travel: calc(var(--track-w) - var(--car-w));
   position: relative;
   width: var(--track-w);
-  height: calc(var(--car-w) * 30 / 98 + 8px);
+  height: calc(var(--car-w) * 28 / 98 + 2px);
 }
 
 .car {
   position: absolute;
-  bottom: 4px;
+  /* as rodas encostam no topo do asfalto (2 px) */
+  bottom: 2px;
   left: 0;
   width: var(--car-w);
-  aspect-ratio: 98 / 30;
+  aspect-ratio: 98 / 28;
   animation:
     drive 2.7s linear forwards,
     burnout 0.1s steps(1) 10;
