@@ -1,9 +1,11 @@
 // Servidor local da pasta out/, parecido com os arquivos estáticos da Cloudflare:
-// aplica o public/_headers (copiado para out/_headers), redireciona /pasta para /pasta/
-// e responde a página 404.html com status 404. Uso: node scripts/serve.mjs [porta]
+// aplica o public/_headers (copiado para out/_headers), redireciona /pasta para /pasta/,
+// responde a página 404.html com status 404 e comprime texto com brotli ou gzip (como a
+// Cloudflare faz), para o Lighthouse medir tamanhos reais. Uso: node scripts/serve.mjs [porta]
 import { createReadStream, existsSync, readFileSync, statSync } from "node:fs";
 import { createServer } from "node:http";
 import { extname, join, normalize, resolve, sep } from "node:path";
+import { createBrotliCompress, createGzip } from "node:zlib";
 
 const root = resolve("out");
 const port = Number(process.argv[2] ?? process.env.PORT ?? 3000);
@@ -51,7 +53,9 @@ function readHeaderRules() {
 
 const rules = readHeaderRules();
 
-function send(res, status, file, pathname) {
+const compressible = /^(text\/|application\/(json|xml)|image\/svg)/;
+
+function send(req, res, status, file, pathname) {
   for (const rule of rules) {
     if (rule.re.test(pathname)) for (const [k, v] of rule.headers) res.setHeader(k, v);
   }
@@ -59,10 +63,24 @@ function send(res, status, file, pathname) {
     res.writeHead(status, { "Content-Type": "text/plain; charset=utf-8" }).end("404");
     return;
   }
-  res.writeHead(status, { "Content-Type": types[extname(file)] ?? "application/octet-stream" });
-  createReadStream(file)
-    .on("error", () => res.destroy())
-    .pipe(res);
+  const type = types[extname(file)] ?? "application/octet-stream";
+  const accept = String(req.headers["accept-encoding"] ?? "");
+  const encoding = !compressible.test(type)
+    ? null
+    : accept.includes("br")
+      ? "br"
+      : accept.includes("gzip")
+        ? "gzip"
+        : null;
+  res.writeHead(status, {
+    "Content-Type": type,
+    Vary: "Accept-Encoding",
+    ...(encoding ? { "Content-Encoding": encoding } : {}),
+  });
+  const stream = createReadStream(file).on("error", () => res.destroy());
+  if (encoding === "br") stream.pipe(createBrotliCompress()).pipe(res);
+  else if (encoding === "gzip") stream.pipe(createGzip()).pipe(res);
+  else stream.pipe(res);
 }
 
 createServer((req, res) => {
@@ -86,10 +104,10 @@ createServer((req, res) => {
   }
   const file = isDir ? join(target, "index.html") : target;
   if (existsSync(file) && statSync(file).isFile() && !file.endsWith("_headers")) {
-    send(res, 200, file, pathname);
+    send(req, res, 200, file, pathname);
     return;
   }
-  send(res, 404, join(root, "404.html"), pathname);
+  send(req, res, 404, join(root, "404.html"), pathname);
 }).listen(port, "127.0.0.1", () => {
   console.log(`Servindo out/ em http://localhost:${port}`);
 });

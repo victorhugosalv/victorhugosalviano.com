@@ -39,7 +39,9 @@ body {
   }
 }
 
-/* Menu do celular aberto: a página atrás não rola. */
-html[data-menu-open] {
-  overflow: hidden;
+/* Menu do celular aberto: a página atrás não rola (só abaixo de 1024 px, onde o menu existe). */
+@media (max-width: 1023px) {
+  html[data-menu-open] {
+    overflow: hidden;
+  }
 }

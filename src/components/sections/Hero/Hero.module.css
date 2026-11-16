@@ -57,7 +57,8 @@
 
 @media (min-width: 1024px) {
   .hero {
-    grid-template-columns: minmax(0, 1fr) 500px;
+    /* Foto de 500 px no Figma (1440); encolhe em telas menores para o nome não quebrar. */
+    grid-template-columns: minmax(0, 1fr) clamp(340px, 36vw, 500px);
     grid-template-rows: 1fr auto auto auto auto 1fr;
     grid-template-areas:
       ". media"
@@ -73,6 +74,7 @@
 
   .media {
     aspect-ratio: 500 / 580;
+    width: 100%;
   }
 
   /* Desktop: foto sem degradê e sem vinheta (decisão de 15/11). */

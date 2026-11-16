@@ -28,6 +28,28 @@ const clippedText = (page: Page) =>
     return out;
   });
 
+/** Palavras do nome e dos títulos quebradas no meio (ex.: "Victo/r"). */
+const brokenWords = (page: Page) =>
+  page.evaluate(() => {
+    const out: string[] = [];
+    for (const el of document.querySelectorAll<HTMLElement>("h1 span, h1, h2")) {
+      const text = el.textContent ?? "";
+      const range = document.createRange();
+      // Cada palavra deve caber numa linha só.
+      let offset = 0;
+      for (const word of text.split(" ")) {
+        const start = text.indexOf(word, offset);
+        offset = start + word.length;
+        if (!word || !el.firstChild || el.firstChild.nodeType !== Node.TEXT_NODE) continue;
+        range.setStart(el.firstChild, start);
+        range.setEnd(el.firstChild, start + word.length);
+        const lines = new Set([...range.getClientRects()].map((r) => Math.round(r.top)));
+        if (lines.size > 1) out.push(word);
+      }
+    }
+    return out;
+  });
+
 // Estes testes trocam a largura por conta própria; rodam só no projeto "desktop".
 test.describe("responsividade", () => {
   test.skip(({ isMobile }) => isMobile, "as larguras são definidas no próprio teste");
@@ -40,6 +62,7 @@ test.describe("responsividade", () => {
           await gotoWithTheme(page, path, theme);
           expect(await horizontalOverflow(page), `${width}px`).toBeLessThanOrEqual(0);
           expect(await clippedText(page), `${width}px`).toEqual([]);
+          expect(await brokenWords(page), `${width}px`).toEqual([]);
         }
       });
     }

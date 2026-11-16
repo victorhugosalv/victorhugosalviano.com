@@ -10,3 +10,6 @@ blob-report/
 .wrangler/
 .env*
 .DS_Store
+
+# Perfis temporários do Chrome (Lighthouse no WSL)
+C:*

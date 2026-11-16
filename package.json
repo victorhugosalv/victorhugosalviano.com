@@ -25,7 +25,8 @@
     "optimize-images": "tsx scripts/optimize-images.ts",
     "pixel-art": "tsx scripts/pixel-art.ts",
     "sync-curriculo": "tsx scripts/sync-curriculo.ts",
-    "deploy:dry-run": "wrangler deploy --dry-run"
+    "deploy:dry-run": "wrangler deploy --dry-run",
+    "lhci": "bash scripts/lhci.sh"
   },
   "dependencies": {
     "@tabler/icons-react": "3.52.0",
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",
+    "@lhci/cli": "0.16.1",
     "@playwright/test": "1.65.1",
     "@testing-library/dom": "10.4.2",
     "@testing-library/react": "16.3.3",

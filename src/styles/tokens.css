@@ -116,6 +116,13 @@
   }
 }
 
+/* Desktop estreito (1024–1279 px): margens menores para o hero caber em duas colunas. */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  :root {
+    --page-gutter: var(--space-48);
+  }
+}
+
 /* Cores: tema claro (Championship White), escolhido no botão de tema */
 :root[data-theme="light"] {
   color-scheme: light;
