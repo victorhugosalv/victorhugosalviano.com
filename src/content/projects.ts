@@ -205,6 +205,40 @@ export const projects = [
         },
       ],
       stack: ["HTML", "CSS", "JavaScript (módulos ES)", "localStorage", "Figma"],
+      // Telas capturadas do app rodando localmente, com os bichos de exemplo (fictícios).
+      screens: {
+        label: "Telas do BichedIn",
+        images: [
+          {
+            name: "bichedin-tela-1",
+            widths: [600, 1200],
+            width: 1200,
+            height: 750,
+            alt: "Página inicial do BichedIn com três bichos em destaque.",
+          },
+          {
+            name: "bichedin-tela-2",
+            widths: [600, 1200],
+            width: 1200,
+            height: 750,
+            alt: "Galeria com a busca, o filtro por espécie e os cartões dos bichos.",
+          },
+          {
+            name: "bichedin-tela-3",
+            widths: [600, 1200],
+            width: 1200,
+            height: 750,
+            alt: "Currículo de um bicho com atributos, conquistas e experiência.",
+          },
+          {
+            name: "bichedin-tela-4",
+            widths: [600, 1200],
+            width: 1200,
+            height: 750,
+            alt: "Formulário Criar com a prévia do cartão ao lado.",
+          },
+        ],
+      },
     },
   },
 ] as const satisfies readonly Project[];
@@ -217,4 +251,8 @@ export const projectTexts = {
   repos: "Repositórios",
   newTab: "(abre em nova aba)",
   repoOnGithub: "repositório no GitHub",
+  previousScreen: "Tela anterior",
+  nextScreen: "Próxima tela",
+  /** rótulo de cada tela do carrossel para o leitor de tela ("2 de 5") */
+  screenLabel: "{position} de {total}",
 } as const;

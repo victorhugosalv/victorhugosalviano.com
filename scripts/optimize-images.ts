@@ -29,6 +29,12 @@ const jobs: Job[] = [
   },
   { name: "rinha", file: "rinha/capa.png", widths: [600, 1200, 1800] },
   { name: "bichedin", file: "bichedin/capa.png", widths: [600, 1200] },
+  // Telas do BichedIn (1280×800, capturadas com os bichos de exemplo).
+  ...[1, 2, 3, 4].map((n) => ({
+    name: `bichedin-tela-${n}`,
+    file: `bichedin/telas/${["1-inicio", "2-galeria", "3-curriculo", "4-criar"][n - 1]}.png`,
+    widths: [600, 1200],
+  })),
 ];
 
 mkdirSync(OUT, { recursive: true });

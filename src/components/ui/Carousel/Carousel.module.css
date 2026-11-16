@@ -1,0 +1,95 @@
+.carousel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  min-width: 0;
+}
+
+/* Trilha com encaixe por slide; não cria rolagem lateral na página. */
+.track {
+  display: flex;
+  gap: var(--space-12);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .track {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Celular: a próxima tela aparece na borda, como dica de arrastar. */
+.slide {
+  flex: 0 0 90%;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-2);
+  scroll-snap-align: start;
+}
+
+@media (min-width: 1024px) {
+  .track {
+    gap: var(--space-24);
+  }
+
+  .slide {
+    flex-basis: 100%;
+  }
+}
+
+.track:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 4px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+/* Sem JavaScript os botões não funcionariam (o dedo e a rolagem continuam). */
+:global(:root:not([data-js])) .controls {
+  display: none;
+}
+
+.button {
+  display: inline-grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.button:hover {
+  border-color: var(--color-text-muted);
+}
+
+.counter {
+  min-width: 4ch;
+  color: var(--color-text);
+  font: var(--text-pixel-large);
+  letter-spacing: var(--text-pixel-tracking);
+  text-align: center;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

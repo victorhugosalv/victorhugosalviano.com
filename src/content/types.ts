@@ -92,6 +92,8 @@ export interface ProjectPage {
   readonly stack: readonly string[];
   /** título da stack quando não é "Stack" (ex.: "Stack planejada", projeto sem código) */
   readonly stackTitle?: string;
+  /** telas do projeto: com 2 ou mais, viram um carrossel no lugar da capa */
+  readonly screens?: { readonly label: string; readonly images: readonly ResponsiveImage[] };
 }
 
 export interface ProjectPageSection {
