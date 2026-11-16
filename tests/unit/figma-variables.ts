@@ -1,7 +1,7 @@
 /**
  * Variáveis da coleção "Cor" do Figma (arquivo asAtp13sr2bKULK5Wr71fk), lidas pelo MCP do Figma
  * em 15/11/2026 nos nós 25:763 (escuro) e 26:987 (claro). Atualize junto com o Figma.
- * Os ícones (sol, lua, conversa) e o degradê da foto vêm do DESIGN.md (mesmas variáveis).
+ * Os ícones (sol, lua, conversa) e o degradê da foto são as variáveis novas da navegação v5.
  */
 export const figmaColors = {
   dark: {

@@ -2,7 +2,7 @@ import type { Project } from "./types";
 
 /**
  * Projetos, na ordem da página. Fatos do curriculo.md; textos do Figma v4 aprovado;
- * BichedIn pela seção 8 do PLANO-NOITE (aprovada).
+ * BichedIn: texto e stack aprovados pelo Victor em 15/11/2026.
  */
 export const projects = [
   {

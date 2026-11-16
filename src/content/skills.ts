@@ -1,6 +1,6 @@
 import type { SkillGroup } from "./types";
 
-/** Skills do site (DESIGN.md; mesmas do PDF, mais HTML, CSS e Tailwind CSS). */
+/** Skills do site (as do PDF, mais HTML, CSS e Tailwind CSS). */
 export const skillGroups = [
   {
     title: "Linguagens",
