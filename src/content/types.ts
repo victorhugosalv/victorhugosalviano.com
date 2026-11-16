@@ -65,6 +65,8 @@ export interface Project {
   readonly slug: string;
   readonly status: ProjectStatus;
   readonly title: string;
+  /** nome curto na faixa de Projetos do desktop (padrão: o título) */
+  readonly shortTitle?: string;
   readonly summary: string;
   readonly period: Period;
   /** rótulos depois do período: "em equipe", "em desenvolvimento", "privado" */

@@ -98,6 +98,8 @@
   --shadow-accent: 0 8px 20px rgb(0 0 0 / 0.35);
   --shadow-menu: 0 12px 16px rgb(0 0 0 / 0.3);
   --color-scrim: rgb(0 0 0 / 0.6);
+  /* luz de palco da faixa de Projetos: quase branca no escuro */
+  --stage-light: rgb(255 255 255 / 0.16);
 }
 
 @media (min-width: 640px) {
@@ -163,6 +165,7 @@
   --shadow-accent: 0 8px 20px rgb(22 21 20 / 0.25);
   --shadow-menu: 0 12px 16px rgb(22 21 20 / 0.16);
   --color-scrim: rgb(22 21 20 / 0.35);
+  --stage-light: rgb(201 164 76 / 0.26);
 }
 
 /* Sem JavaScript: segue o sistema. Mesmos valores do bloco acima. */
@@ -189,5 +192,6 @@
     --shadow-accent: 0 8px 20px rgb(22 21 20 / 0.25);
     --shadow-menu: 0 12px 16px rgb(22 21 20 / 0.16);
     --color-scrim: rgb(22 21 20 / 0.35);
+    --stage-light: rgb(201 164 76 / 0.26);
   }
 }

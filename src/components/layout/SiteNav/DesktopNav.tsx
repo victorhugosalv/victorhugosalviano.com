@@ -9,7 +9,8 @@ import { useScrolledPast, useViewportPosition } from "@/hooks/useViewportPositio
 import { ThemeToggleFloating } from "../ThemeToggle";
 
 import styles from "./DesktopNav.module.css";
-import { desktopLinks, type NavLink } from "./navLinks";
+import { DesktopProjectsItem } from "./DesktopProjectsItem";
+import { desktopLinks, projectsSectionId, type NavLink } from "./navLinks";
 
 function PillLink({ link, active }: { link: NavLink; active: boolean }) {
   return (
@@ -29,7 +30,14 @@ function PillLink({ link, active }: { link: NavLink; active: boolean }) {
  * Desktop (≥ 1024 px): pílula centralizada; tema (em cima) e contato (embaixo) na mesma
  * coluna, presos à borda direita da janela. O contato é um atalho de ação, em vermelho.
  */
-export function DesktopNav({ active, hasHero }: { active: string | null; hasHero: boolean }) {
+interface DesktopNavProps {
+  active: string | null;
+  hasHero: boolean;
+  currentProject: string | undefined;
+  onProjectsIndex: boolean;
+}
+
+export function DesktopNav({ active, hasHero, currentProject, onProjectsIndex }: DesktopNavProps) {
   const pastHero = useScrolledPast(anchors.heroEnd);
   const contactPosition = useViewportPosition(anchors.contact);
   const showContact = (!hasHero || pastHero) && contactPosition !== "visible";
@@ -37,9 +45,19 @@ export function DesktopNav({ active, hasHero }: { active: string | null; hasHero
     <nav aria-label={ui.nav.label} className={styles.desktop}>
       <div className={styles.pill}>
         <ul className={styles.list}>
-          {desktopLinks.left.map((link) => (
-            <PillLink key={link.id} link={link} active={active === link.id} />
-          ))}
+          {desktopLinks.left.map((link) =>
+            link.id === projectsSectionId ? (
+              <DesktopProjectsItem
+                key={link.id}
+                link={link}
+                active={active === link.id}
+                currentProject={currentProject}
+                onProjectsIndex={onProjectsIndex}
+              />
+            ) : (
+              <PillLink key={link.id} link={link} active={active === link.id} />
+            ),
+          )}
           <li>
             <a href={`/#${anchors.top}`} aria-label={ui.nav.logoLabel} className={styles.logo}>
               <span className={styles.logoBar} aria-hidden="true" />

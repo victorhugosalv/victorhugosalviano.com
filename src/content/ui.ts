@@ -14,6 +14,8 @@ export const ui = {
     showProjects: "Mostrar projetos",
     hideProjects: "Esconder projetos",
     allProjects: "Ver todos os projetos",
+    allProjectsShort: "Todos",
+    allProjectsLabel: "Todos os projetos",
   },
   theme: {
     toLight: "Modo claro",

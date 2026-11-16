@@ -53,13 +53,28 @@
   padding: 0 var(--space-12);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-full);
-  background: color-mix(in srgb, var(--color-bg) 55%, transparent);
-  backdrop-filter: blur(16px) saturate(1.6);
   box-shadow: var(--shadow-float);
 }
 
+/* O vidro fica num pseudo-elemento: um backdrop-filter na própria pílula faria a faixa de
+   Projetos (dentro dela) desfocar só o que está dentro da pílula, e não a página. */
+.pill::before,
+.strip {
+  background: color-mix(in srgb, var(--color-bg) 55%, transparent);
+  backdrop-filter: blur(16px) saturate(1.6);
+}
+
+.pill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+}
+
 @media (prefers-reduced-transparency: reduce) {
-  .pill {
+  .pill::before,
+  .strip {
     background: var(--color-bg);
     backdrop-filter: none;
   }
@@ -118,4 +133,135 @@
   width: 4px;
   height: 16px;
   background: var(--color-red);
+}
+
+/* ---------- Projetos: link, seta e a faixa que desce ---------- */
+
+.projectsItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.projectsLink {
+  padding-right: var(--space-4);
+}
+
+.projectsLink::after {
+  right: var(--space-4);
+}
+
+.projectsToggle {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 48px;
+  margin-right: var(--space-4);
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    rotate var(--duration-fast) var(--ease-out);
+}
+
+.projectsToggle:hover,
+.projectsToggle[aria-expanded="true"] {
+  color: var(--color-text);
+}
+
+.projectsToggle[aria-expanded="true"] {
+  rotate: 180deg;
+}
+
+/* Centralizada sob "Projetos". O padding de cima é a ponte invisível que leva o mouse da
+   pílula até a faixa sem fechar. */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  padding-top: calc(var(--space-12) + 1px);
+  translate: -50% -6px;
+  opacity: 0;
+  visibility: hidden;
+  /* ao fechar, some depois do fade; ao abrir, fica visível (e focável) na hora */
+  transition:
+    opacity var(--duration-fast) var(--ease-out),
+    translate var(--duration-fast) var(--ease-out),
+    visibility 0s linear var(--duration-fast);
+}
+
+.dropdown[data-open="true"] {
+  translate: -50% 0;
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+/* Faixa reta, do mesmo vidro, com uma luz de palco neutra vinda de baixo. */
+.strip {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-8);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background-image: radial-gradient(120% 150% at 50% 100%, var(--stage-light), transparent 70%);
+  box-shadow:
+    inset 0 -1px 0 var(--stage-light),
+    var(--shadow-float);
+  white-space: nowrap;
+}
+
+/* Ponto entre os nomes (desenhado, sem texto para o leitor de tela). */
+.strip > li + li::before {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  margin: 0 var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--color-text-muted);
+  vertical-align: middle;
+}
+
+.stripLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: 44px;
+  padding: 0 var(--space-12);
+  color: var(--color-text-muted);
+  font: var(--text-button);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.stripLink::after {
+  content: "";
+  position: absolute;
+  right: var(--space-12);
+  bottom: 8px;
+  left: var(--space-12);
+  height: 2px;
+  background: transparent;
+}
+
+.stripLink:hover,
+.stripLink:focus-visible,
+.stripLink[aria-current="page"] {
+  color: var(--color-text);
+}
+
+/* O vermelho fica só no sublinhado, como no resto da pílula. */
+.stripLink:hover::after,
+.stripLink:focus-visible::after,
+.stripLink[aria-current="page"]::after {
+  background: var(--color-red);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dropdown,
+  .dropdown[data-open="true"] {
+    translate: -50% 0;
+  }
 }

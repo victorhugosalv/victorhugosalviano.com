@@ -1,9 +1,14 @@
 import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { useRef } from "react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { useDisclosure } from "@/hooks/useDisclosure";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
+import {
+  HOVER_CLOSE_DELAY,
+  HOVER_OPEN_DELAY,
+  useHoverDisclosure,
+} from "@/hooks/useHoverDisclosure";
 import { useMenuButton } from "@/hooks/useMenuButton";
 import { useTheme } from "@/hooks/useTheme";
 import { THEME_STORAGE_KEY } from "@/lib/theme";
@@ -133,5 +138,75 @@ describe("useMenuButton", () => {
     expect(screen.getByTestId("estado").textContent).toBe("aberto");
     fireEvent.click(button);
     expect(screen.getByTestId("estado").textContent).toBe("fechado");
+  });
+});
+
+function HoverMenu() {
+  const { isOpen, panelId, rootRef, buttonRef, toggle, rootProps } =
+    useHoverDisclosure<HTMLDivElement>();
+  return (
+    <>
+      <div ref={rootRef} data-testid="raiz" {...rootProps}>
+        <button ref={buttonRef} type="button" aria-expanded={isOpen} onClick={toggle}>
+          seta
+        </button>
+        <ul id={panelId} hidden={!isOpen}>
+          <li>
+            <a href="#um">um</a>
+          </li>
+        </ul>
+      </div>
+      <button type="button">fora</button>
+    </>
+  );
+}
+
+describe("useHoverDisclosure", () => {
+  const seta = () => screen.getByRole("button", { name: "seta" });
+
+  it("abre e fecha com o mouse depois de um atraso; o toque não abre", () => {
+    vi.useFakeTimers();
+    try {
+      render(<HoverMenu />);
+      const raiz = screen.getByTestId("raiz");
+      fireEvent.pointerEnter(raiz, { pointerType: "touch" });
+      act(() => vi.advanceTimersByTime(HOVER_OPEN_DELAY));
+      expect(seta().getAttribute("aria-expanded")).toBe("false");
+
+      fireEvent.pointerEnter(raiz, { pointerType: "mouse" });
+      act(() => vi.advanceTimersByTime(HOVER_OPEN_DELAY - 1));
+      expect(seta().getAttribute("aria-expanded")).toBe("false");
+      act(() => vi.advanceTimersByTime(1));
+      expect(seta().getAttribute("aria-expanded")).toBe("true");
+
+      // sair e voltar antes do atraso não fecha
+      fireEvent.pointerLeave(raiz, { pointerType: "mouse" });
+      act(() => vi.advanceTimersByTime(HOVER_CLOSE_DELAY - 1));
+      fireEvent.pointerEnter(raiz, { pointerType: "mouse" });
+      act(() => vi.advanceTimersByTime(HOVER_CLOSE_DELAY));
+      expect(seta().getAttribute("aria-expanded")).toBe("true");
+
+      fireEvent.pointerLeave(raiz, { pointerType: "mouse" });
+      act(() => vi.advanceTimersByTime(HOVER_CLOSE_DELAY));
+      expect(seta().getAttribute("aria-expanded")).toBe("false");
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("a seta alterna; Esc fecha e devolve o foco; o foco saindo fecha", () => {
+    render(<HoverMenu />);
+    fireEvent.click(seta());
+    expect(seta().getAttribute("aria-expanded")).toBe("true");
+    const link = screen.getByRole("link", { name: "um" });
+    link.focus();
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(seta().getAttribute("aria-expanded")).toBe("false");
+    expect(document.activeElement).toBe(seta());
+
+    fireEvent.click(seta());
+    const fora = screen.getByRole("button", { name: "fora" });
+    fireEvent.blur(seta(), { relatedTarget: fora });
+    expect(seta().getAttribute("aria-expanded")).toBe("false");
   });
 });

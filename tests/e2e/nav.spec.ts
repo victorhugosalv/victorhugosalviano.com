@@ -21,6 +21,7 @@ test.describe("navegação no desktop", () => {
         "Pular para o conteúdo",
         "Skills",
         "Projetos",
+        "Mostrar projetos",
         "VHS, Victor Hugo Salviano: início",
         "Sobre",
         "Trajetória",
@@ -73,6 +74,56 @@ test.describe("navegação no desktop", () => {
     expect(Math.round(viewport.width - (t.x + t.width))).toBe(32);
     expect(Math.round(t.x)).toBe(Math.round(c.x));
     expect(t.y).toBeLessThan(c.y);
+  });
+
+  test("Projetos: o mouse abre a faixa com os projetos e Todos; Esc fecha", async ({ page }) => {
+    await gotoWithTheme(page, "/", "dark");
+    const nav = page.getByRole("navigation", { name: "Navegação principal" }).first();
+    const toggle = nav.getByRole("button", { name: /^(Mostrar|Esconder) projetos$/ });
+    const rinha = nav.getByRole("link", { name: "Rinha", exact: true });
+    await expect(rinha).toBeHidden();
+    await nav.getByRole("link", { name: "Projetos", exact: true }).hover();
+    await expect(rinha).toBeVisible();
+    await expect(nav.getByRole("button", { name: "Esconder projetos" })).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
+    for (const name of ["Docenda", "BichedIn", "Todos os projetos"]) {
+      await expect(nav.getByRole("link", { name, exact: true })).toBeVisible();
+    }
+    // o caminho do mouse até a faixa não fecha
+    await rinha.hover();
+    await page.waitForTimeout(400);
+    await expect(rinha).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(rinha).toBeHidden();
+    await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  });
+
+  test("Projetos pelo teclado: a seta abre, Tab entra na faixa e Esc devolve o foco", async ({
+    page,
+  }) => {
+    await gotoWithTheme(page, "/", "dark");
+    const nav = page.getByRole("navigation", { name: "Navegação principal" }).first();
+    const toggle = nav.getByRole("button", { name: /^(Mostrar|Esconder) projetos$/ });
+    await toggle.focus();
+    await page.keyboard.press("Enter");
+    await expect(toggle).toHaveAttribute("aria-expanded", "true");
+    await page.keyboard.press("Tab");
+    await expect(nav.getByRole("link", { name: "Rinha", exact: true })).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(toggle).toBeFocused();
+    await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  });
+
+  test("na página de um projeto, a faixa marca o projeto atual", async ({ page }) => {
+    await gotoWithTheme(page, "/projetos/docenda/", "dark");
+    const nav = page.getByRole("navigation", { name: "Navegação principal" }).first();
+    await nav.getByRole("button", { name: "Mostrar projetos" }).click();
+    await expect(nav.getByRole("link", { name: "Docenda", exact: true })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
   });
 
   test("Contato aparece depois do hero e some na seção Contatos", async ({ page }) => {

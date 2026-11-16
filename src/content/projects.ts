@@ -10,6 +10,7 @@ export const projects = [
     slug: "rinha-do-campus-iv",
     status: "concluido",
     title: "Rinha do Campus IV",
+    shortTitle: "Rinha",
     summary:
       "Plataforma de torneios de e-sports do Campus IV (League of Legends, Counter-Strike 2 e Valorant): inscrição de equipes, pagamento pelo Mercado Pago e painel de administração.",
     period: {

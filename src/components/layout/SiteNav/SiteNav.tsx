@@ -28,7 +28,13 @@ export function SiteNav() {
   // Só o início tem hero; nas outras páginas os botões aparecem desde o começo.
   return (
     <>
-      <DesktopNav key={`d${pathname}`} active={active} hasHero={isHome} />
+      <DesktopNav
+        key={`d${pathname}`}
+        active={active}
+        hasHero={isHome}
+        currentProject={currentProject}
+        onProjectsIndex={onProjectsIndex}
+      />
       <MobileNav
         key={`m${pathname}`}
         active={active}
