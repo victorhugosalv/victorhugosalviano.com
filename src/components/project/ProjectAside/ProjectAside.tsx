@@ -35,7 +35,7 @@ export function ProjectAside({ project, page }: { project: Project; page: Projec
           <h2 id="repos-titulo" className={styles.title}>
             {projectTexts.repos}
           </h2>
-          {/* Sem link: "Repositório privado" ou "Repositório em breve". */}
+          {/* Sem link: nota no lugar, como "Repositório privado". */}
           {project.repos.length > 0 ? (
             <ul className={styles.repos}>
               {project.repos.map((repo) => (

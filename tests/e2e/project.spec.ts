@@ -72,15 +72,19 @@ test.describe("página da Rinha", () => {
     await expect(page).toHaveURL(new RegExp(`${RINHA}$`));
   });
 
-  test("sem link de repositório, a página diz se é privado ou em breve", async ({ page }) => {
+  test("sem link de repositório, a página diz que é privado; a Docenda aponta para o dela", async ({
+    page,
+  }) => {
     await gotoWithTheme(page, "/projetos/bichedin/", "dark");
     const repos = page.getByRole("region", { name: "Repositórios" });
     await expect(repos).toContainText("Repositório privado");
     await expect(repos.getByRole("link")).toHaveCount(0);
     await gotoWithTheme(page, "/projetos/docenda/", "dark");
     await expect(page.getByRole("heading", { name: "Stack planejada" })).toBeVisible();
-    await expect(page.getByRole("region", { name: "Repositórios" })).toContainText(
-      "Repositório em breve",
-    );
+    await expect(
+      page
+        .getByRole("region", { name: "Repositórios" })
+        .getByRole("link", { name: /victorhugosalv\/docenda/ }),
+    ).toHaveAttribute("href", "https://github.com/victorhugosalv/docenda");
   });
 });

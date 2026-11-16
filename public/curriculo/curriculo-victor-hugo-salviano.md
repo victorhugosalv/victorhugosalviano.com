@@ -20,7 +20,9 @@ Disciplinas: Inteligência Artificial, Probabilidade e Estatística, Estruturas 
 
 Plataforma web para criar e avaliar planos de aula de Computação com IA. Em desenvolvimento. Stack planejada: TypeScript, Node.js, React, PostgreSQL, Docker, API da Anthropic.
 
-- Levantei os requisitos com privacidade desde a concepção (LGPD; turma descrita sem identificar alunos) e registrei 6 decisões de arquitetura (ADRs): monólito modular com portas e adaptadores, sessão no servidor e checklist OWASP ASVS nível 1.
+Repositório: [github.com/victorhugosalv/docenda](https://github.com/victorhugosalv/docenda) (requisitos e decisões de arquitetura)
+
+- Levantei os requisitos com privacidade desde a concepção (LGPD; turma descrita sem identificar alunos) e registrei 8 decisões de arquitetura (ADRs): monólito modular com portas e adaptadores, sessão no servidor e checklist OWASP ASVS nível 1.
 - Projetei a integração com LLM: resposta em JSON validado, proteções do OWASP Top 10 para LLM e teto de gasto por usuário.
 
 ### Rinha do Campus IV · abr/2026 – mai/2026

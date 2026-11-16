@@ -123,8 +123,13 @@ export const projects = [
     tags: ["em desenvolvimento"],
     stackLabel: "Stack planejada:",
     stack: ["TypeScript", "Node.js", "React", "PostgreSQL", "Docker", "API da Anthropic"],
-    repos: [],
-    note: "Repositório em breve",
+    repos: [
+      {
+        name: "victorhugosalv/docenda",
+        href: "https://github.com/victorhugosalv/docenda",
+        description: "Requisitos e decisões de arquitetura",
+      },
+    ],
     imagePlaceholder: "Tela quando existir",
     page: {
       label: "Projeto",

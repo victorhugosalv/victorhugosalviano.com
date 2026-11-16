@@ -73,7 +73,7 @@ export interface Project {
   /** "Stack planejada:" quando o projeto ainda não tem código */
   readonly stackLabel?: string;
   readonly repos: readonly Repo[];
-  /** nota no lugar dos repositórios ("Repositório em breve") */
+  /** nota no lugar dos repositórios ("Repositório privado") */
   readonly note?: string;
   readonly image?: ResponsiveImage;
   /** texto no lugar da imagem enquanto ela não existe */
