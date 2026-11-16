@@ -1,0 +1,12 @@
+{
+  // Site estático: só arquivos de out/, sem script de Worker.
+  // Deploy e domínio são feitos à mão, com o Victor (fase 8 do plano).
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "victorhugosalviano-com",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./out",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+  },
+}

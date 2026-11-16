@@ -71,14 +71,23 @@ test.describe("responsividade", () => {
       expect(await horizontalOverflow(page)).toBeLessThanOrEqual(0);
       expect(await clippedText(page)).toEqual([]);
     });
+  }
+});
 
+// O espaçamento do WCAG 1.4.12 é aplicado pelo usuário (extensão ou folha de estilo própria),
+// que o navegador aceita mesmo com a CSP do site; por isso aqui a CSP é ignorada.
+test.describe("espaçamento de texto", () => {
+  test.skip(({ isMobile }) => isMobile, "as larguras são definidas no próprio teste");
+  test.use({ bypassCSP: true });
+
+  for (const path of PAGES) {
     test(`espaçamento de texto do WCAG 1.4.12 em ${path}`, async ({ page }) => {
       for (const width of [320, 1440]) {
         await page.setViewportSize({ width, height: 900 });
         await gotoWithTheme(page, path, "light");
         await page.addStyleTag({
           content: `* { line-height: 1.5 !important; letter-spacing: 0.12em !important; word-spacing: 0.16em !important; }
-                    p { margin-bottom: 2em !important; }`,
+                  p { margin-bottom: 2em !important; }`,
         });
         expect(await horizontalOverflow(page), `${width}px`).toBeLessThanOrEqual(0);
         expect(await clippedText(page), `${width}px`).toEqual([]);

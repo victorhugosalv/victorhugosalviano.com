@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && tsx scripts/csp-hashes.ts",
     "preview": "node scripts/serve.mjs 3000",
     "typecheck": "tsc --noEmit",
     "lint": "eslint --max-warnings 0 .",
@@ -23,7 +23,9 @@
     "screenshots": "tsx scripts/screenshots.ts",
     "brand-colors": "tsx scripts/brand-colors.ts",
     "optimize-images": "tsx scripts/optimize-images.ts",
-    "pixel-art": "tsx scripts/pixel-art.ts"
+    "pixel-art": "tsx scripts/pixel-art.ts",
+    "sync-curriculo": "tsx scripts/sync-curriculo.ts",
+    "deploy:dry-run": "wrangler deploy --dry-run"
   },
   "dependencies": {
     "@tabler/icons-react": "3.52.0",
@@ -49,6 +51,7 @@
     "tsx": "4.23.15",
     "typescript": "6.0.3",
     "typescript-eslint": "8.72.2",
-    "vitest": "5.1.0"
+    "vitest": "5.1.0",
+    "wrangler": "4.162.0"
   }
 }

@@ -52,6 +52,10 @@ Regras (conferidas por `npm run check:rules`):
 
 Meta: WCAG 2.2 AA. HTML semântico, link "Pular para o conteúdo", foco visível, menus pelo teclado (setas, Esc, foco preso), contraste AA nos dois temas, área de toque de 44 px e respeito a `prefers-reduced-motion` e `prefers-reduced-transparency`. O axe roda em todas as páginas, nos dois temas, a cada teste.
 
+## Segurança
+
+`public/_headers` define, para a Cloudflare: CSP sem `unsafe-inline` (scripts inline só com hash), HSTS, `nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy` e `Permissions-Policy` fechando câmera, microfone e localização. O `npm run preview` serve `out/` aplicando esse arquivo, e os testes E2E falham com qualquer violação de CSP no console.
+
 ## Privacidade
 
 Sem cookies, sem analytics e sem nada de terceiros: fontes, imagens e logos são servidos pelo próprio site. A preferência de tema fica no `localStorage` do navegador. As imagens passam por um script que remove os metadados (EXIF/GPS).
