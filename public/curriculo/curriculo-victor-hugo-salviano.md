@@ -22,7 +22,7 @@ Plataforma web para criar e avaliar planos de aula de Computação com IA. Em de
 
 Repositório: [github.com/victorhugosalv/docenda](https://github.com/victorhugosalv/docenda) (requisitos e decisões de arquitetura)
 
-- Levantei os requisitos com privacidade desde a concepção (LGPD; turma descrita sem identificar alunos) e concluí a arquitetura em 11 decisões (ADRs): monólito modular com portas e adaptadores, segurança pelo OWASP ASVS nível 1, logs sem dados pessoais e plano de resposta a incidentes.
+- Levantei os requisitos com privacidade desde a concepção (LGPD; turma descrita sem identificar alunos) e concluí a arquitetura em 14 decisões (ADRs): monólito modular com portas e adaptadores, segurança pelo OWASP ASVS nível 1, logs sem dados pessoais e plano de resposta a incidentes.
 - Projetei a integração com LLM: resposta em JSON validado, proteções do OWASP Top 10 para LLM e teto de gasto por usuário.
 
 ### Rinha do Campus IV · abr/2026 – mai/2026
