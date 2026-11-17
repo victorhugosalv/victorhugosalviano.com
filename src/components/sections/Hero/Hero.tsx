@@ -7,6 +7,7 @@ import { heroActions, profile } from "@/content/profile";
 import { anchors } from "@/content/sections";
 
 import styles from "./Hero.module.css";
+import { HeroEmail } from "./HeroEmail";
 
 /**
  * Início. Celular: nome sobre a foto, com degradê para o fundo.
@@ -37,7 +38,7 @@ export function Hero() {
             href={links.linkedin.href}
             brand="linkedin"
           />
-          <Chip icon="mail" label={links.email.label} href={links.email.href} />
+          <HeroEmail />
         </Cluster>
       </div>
       <div className={styles.actions}>

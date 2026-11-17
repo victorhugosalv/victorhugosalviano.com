@@ -62,14 +62,32 @@ test.describe("página inicial", () => {
     }
   });
 
-  test("copiar e-mail avisa o leitor de tela", async ({ page, context, browserName }) => {
-    test.skip(browserName !== "chromium");
-    await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  for (const [where, selector] of [
+    ["no início, colado ao chip do e-mail", "#inicio"],
+    ["nos contatos", "#contatos"],
+  ] as const) {
+    test(`copiar e-mail ${where} avisa o leitor de tela`, async ({
+      page,
+      context,
+      browserName,
+    }) => {
+      test.skip(browserName !== "chromium");
+      await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+      await gotoWithTheme(page, "/", "dark");
+      const area = page.locator(selector);
+      await area.getByRole("button", { name: "Copiar e-mail" }).click();
+      await expect(area.getByRole("status")).toHaveText("E-mail copiado");
+      expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
+        "contato@victorhugosalviano.com",
+      );
+    });
+  }
+
+  test("o chip do e-mail no início continua abrindo o app de e-mail", async ({ page }) => {
     await gotoWithTheme(page, "/", "dark");
-    await page.getByRole("button", { name: "Copiar e-mail" }).click();
-    await expect(page.getByRole("status")).toHaveText("E-mail copiado");
-    expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
-      "contato@victorhugosalviano.com",
+    await expect(page.locator("#inicio").getByRole("link", { name: "E-mail" })).toHaveAttribute(
+      "href",
+      "mailto:contato@victorhugosalviano.com",
     );
   });
 
