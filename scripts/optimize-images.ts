@@ -29,6 +29,8 @@ const jobs: Job[] = [
   },
   { name: "rinha", file: "rinha/capa.png", widths: [600, 1200, 1800] },
   { name: "bichedin", file: "bichedin/capa.png", widths: [600, 1200] },
+  // Capa tipográfica da Docenda (2400×1260, proporção 1200×630).
+  { name: "docenda", file: "docenda/capa.png", widths: [600, 1200] },
   // Telas do BichedIn (1280×800, capturadas com os bichos de exemplo).
   ...[1, 2, 3, 4].map((n) => ({
     name: `bichedin-tela-${n}`,

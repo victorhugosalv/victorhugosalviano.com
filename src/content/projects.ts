@@ -130,7 +130,13 @@ export const projects = [
         description: "Requisitos e decisões de arquitetura",
       },
     ],
-    imagePlaceholder: "Tela quando existir",
+    image: {
+      name: "docenda",
+      widths: [600, 1200],
+      width: 1200,
+      height: 630,
+      alt: "Capa da Docenda: o nome escrito em letra cursiva de giz num quadro verde e a frase “A IA sugere. O professor decide.”",
+    },
     page: {
       label: "Projeto",
       description: "Plataforma web para criar e avaliar planos de aula de Computação com IA.",

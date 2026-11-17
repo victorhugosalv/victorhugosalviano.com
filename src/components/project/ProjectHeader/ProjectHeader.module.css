@@ -37,9 +37,10 @@
   font: var(--text-page-lead);
 }
 
+/* Capa inteira, na proporção das capas dos projetos (1200×630), sem cortar texto. */
 .cover {
   overflow: hidden;
-  aspect-ratio: 1861 / 923;
+  aspect-ratio: 1200 / 630;
   border-radius: var(--radius-lg);
   background: var(--color-surface-2);
 }
@@ -51,10 +52,5 @@
 
   .titles {
     gap: var(--space-16);
-  }
-
-  .cover {
-    aspect-ratio: auto;
-    height: 480px;
   }
 }
